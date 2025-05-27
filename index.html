@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yohualli - Impresiones 3D de Vanguardia</title>
+    <meta name="description" content="Transformamos tus ideas en realidad con tecnología de impresión 3D de última generación. Productos personalizados, prototipos y más.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="printer-animation.css">
+</head>
+<body>
+    <!-- Animación de entrada con impresora 3D -->
+    <div class="printer-intro-screen" id="printerIntroScreen">
+        <div class="printer-animation-container">
+            <!-- Impresora 3D animada -->
+            <div class="printer-3d">
+                <div class="printer-base">
+                    <div class="printer-brand">YOHUALLI</div>
+                    <div class="printer-led led-1"></div>
+                    <div class="printer-led led-2"></div>
+                    <div class="printer-led led-3"></div>
+                </div>
+                <div class="printer-frame">
+                    <div class="printer-column column-left"></div>
+                    <div class="printer-column column-right"></div>
+                    <div class="printer-top-bar"></div>
+                    <div class="printer-bed">
+                        <div class="bed-grid"></div>
+                    </div>
+                    <div class="printer-extruder">
+                        <div class="extruder-body"></div>
+                        <div class="printer-nozzle"></div>
+                        <div class="extruder-fan"></div>
+                    </div>
+                    <div class="printer-filament">
+                        <div class="filament-spool"></div>
+                        <div class="filament-tube"></div>
+                    </div>
+                </div>
+                <!-- Producto siendo impreso -->
+                <div class="printing-object">
+                    <div class="object-layer layer-1"></div>
+                    <div class="object-layer layer-2"></div>
+                    <div class="object-layer layer-3"></div>
+                    <div class="object-layer layer-4"></div>
+                    <div class="object-layer layer-5"></div>
+                </div>
+                <!-- Efectos de impresión -->
+                <div class="printing-effects">
+                    <div class="laser-line"></div>
+                    <div class="print-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                    <div class="heat-waves"></div>
+                </div>
+            </div>
+            <!-- Texto de carga -->
+            <div class="intro-text">
+                <h1 class="intro-title">YOHUALLI</h1>
+                <p class="intro-subtitle">Imprimiendo el futuro...</p>
+                <div class="intro-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="intro-percentage">0%</div>
+            </div>
+        </div>
+        <!-- Producto final para zoom -->
+        <div class="final-product" id="finalProduct">
+            <div class="product-showcase">
+                <i class="fas fa-cube"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="personalizado.html">Personalizado</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="particles" id="particles"></div>
+            <div class="hero-content">
+                <h1 class="float">YOHUALLI</h1>
+                <p>Transformamos tus ideas en realidad a través de la impresión 3D de vanguardia</p>
+                <a href="productos.html" class="cta-button glow">
+                    Explorar Productos
+                </a>
+            </div>
+        </section>
+
+        <!-- ¿Por qué elegirnos? -->
+        <section class="section">
+            <div class="trending-products">
+                <h2 class="section-title">¿Por qué elegir Yohualli?</h2>
+                <div class="products-grid">
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-cogs" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Tecnología de Vanguardia</h3>
+                            <p class="product-description">
+                                Contamos con impresoras FDM, SLA y SLS de última generación, capaces de trabajar con los materiales más avanzados del mercado.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-medal" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Calidad Certificada</h3>
+                            <p class="product-description">
+                                Procesos de calidad ISO 9001, controles rigurosos en cada etapa y garantía completa en todos nuestros productos y servicios.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-clock" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Tiempos Competitivos</h3>
+                            <p class="product-description">
+                                Optimizamos nuestros procesos para ofrecer los mejores tiempos de entrega sin comprometer la calidad del producto final.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-handshake" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Atención Personalizada</h3>
+                            <p class="product-description">
+                                Cada cliente es único. Ofrecemos consultoría especializada y acompañamiento en todo el proceso de desarrollo.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-leaf" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Compromiso Ambiental</h3>
+                            <p class="product-description">
+                                Utilizamos materiales biodegradables, reciclamos residuos y compensamos nuestra huella de carbono.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-graduation-cap" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Innovación Continua</h3>
+                            <p class="product-description">
+                                Investigación constante, colaboración con universidades y participación activa en la comunidad maker mexicana.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="productos.html" class="cta-button">
+                        <i class="fas fa-cube"></i> Ver Nuestros Productos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Servicios -->
+        <section class="section">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="products-grid">
+                <div class="product-card slide-in-left">
+                    <div class="product-image">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3 class="product-name">Impresión 3D</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                        Impresión de alta calidad con tecnología FDM y SLA para todo tipo de proyectos.
+                    </p>
+                    <a href="productos.html" class="add-to-cart">Ver Más</a>
+                </div>
+                
+                <div class="product-card fade-in">
+                    <div class="product-image">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <h3 class="product-name">Diseño 3D</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                        Creamos modelos 3D personalizados desde tu idea hasta el producto final.
+                    </p>
+                    <a href="personalizado.html" class="add-to-cart">Solicitar</a>
+                </div>
+                
+                <div class="product-card slide-in-right">
+                    <div class="product-image">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="product-name">Prototipado Rápido</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                        Desarrolla y prueba tus ideas con nuestros servicios de prototipado acelerado.
+                    </p>
+                    <a href="contacto.html" class="add-to-cart">Consultar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Proceso -->
+        <section class="section process-section">
+            <h2 class="section-title">Nuestro Proceso</h2>
+            <div class="process-container">
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-image">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="step-number">1</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Consulta Inicial</h3>
+                        <p>Analizamos tu proyecto y definimos especificaciones técnicas detalladas</p>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-image">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="step-number">2</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Diseño 3D</h3>
+                        <p>Creamos o optimizamos el modelo 3D según tus necesidades específicas</p>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-image">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="step-number">3</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Cotización</h3>
+                        <p>Te proporcionamos un presupuesto detallado y tiempos de entrega precisos</p>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-image">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <div class="step-number">4</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Producción</h3>
+                        <p>Imprimimos tu proyecto con la tecnología más adecuada para garantizar calidad</p>
+                    </div>
+                </div>
+                
+                <div class="process-connector"></div>
+                
+                <div class="process-step">
+                    <div class="step-visual">
+                        <div class="step-image">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="step-number">5</div>
+                    </div>
+                    <div class="step-content">
+                        <h3>Entrega</h3>
+                        <p>Control de calidad final y entrega de tu producto terminado a tiempo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Galería de Proyectos -->
+<section class="section gallery-section-fixed">
+    <div class="gallery-container">
+        <h2 class="section-title">Galería de Proyectos</h2>
+        <div class="gallery-filter">
+            <button class="filter-btn active" onclick="filterGalleryFixed('all')">Todos</button>
+            <button class="filter-btn" onclick="filterGalleryFixed('prototipos')">Prototipos</button>
+            <button class="filter-btn" onclick="filterGalleryFixed('figuras')">Figuras</button>
+            <button class="filter-btn" onclick="filterGalleryFixed('funcional')">Funcional</button>
+            <button class="filter-btn" onclick="filterGalleryFixed('decorativo')">Decorativo</button>
+        </div>
+        <div class="gallery-grid-fixed">
+            <!-- Prototipo Mecánico -->
+            <div class="gallery-item-fixed" data-category="funcional">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/F22.png" alt="Engranaje" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>F-22 Raptor Display Model</h4>
+                        <p>Modelo a escala del caza F-22 Raptor, impreso en alta resolución con detalles aerodinámicos precisos. Ideal para exhibición, educación o coleccionismo.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">PETG</span>
+                            <span class="tag">Funcional</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Figura Personalizada -->
+            <div class="gallery-item-fixed" data-category="figuras">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Grumpy Cat Figurine.png" alt="Figura" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Grumpy Cat Figurine</h4>
+                        <p>Miniatura detallada en resina SLA con acabado premium</p>
+                        <div class="gallery-tags">
+                            <span class="tag">Resina</span>
+                            <span class="tag">Alta Precisión</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Maqueta Arquitectónica -->
+            <div class="gallery-item-fixed" data-category="figuras">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Dummy 13 - Terminator T800 Armor.png" alt="Maqueta" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Dummy 13 - Terminator T800 Armor</h4>
+                        <p>Armadura T800 impresa a escala 1:100. Perfecta para presentación o exhibición.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">PLA</span>
+                            <span class="tag">Figuras</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Axolote en Miniatura -->
+            <div class="gallery-item-fixed" data-category="decorativo">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/axolotl.png" alt="Axolote en miniatura" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Axolote en Miniatura</h4>
+                        <p>Figura de axolote en resina casteable, ideal como joya o pieza decorativa única.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">Axolote</span>
+                            <span class="tag">Resina</span>
+                            <span class="tag">Hecho a mano</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Exhibidor Escalonado 3 Niveles -->
+            <div class="gallery-item-fixed" data-category="funcional">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Desk organizer - display shelves.png" alt="Exhibidor escalonado" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Exhibidor Escalonado</h4>
+                        <p>Soporte de 3 niveles ideal para exhibición de productos pequeños.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">PETG</span>
+                            <span class="tag">Funcional</span>
+                            <span class="tag">Estable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Prototipo de Engranaje y Cremallera -->
+            <div class="gallery-item-fixed" data-category="prototipos">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Rack and Sprocket Module 3.png" alt="Prototipo engranaje cremallera" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Engranaje y Cremallera</h4>
+                        <p>Prototipo funcional impreso en PLA para pruebas mecánicas.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">PLA</span>
+                            <span class="tag">Prototipo</span>
+                            <span class="tag">Engranaje</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Figura Decorativa - Personaje Rojo -->
+            <div class="gallery-item-fixed" data-category="decorativo">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Repo Bead.png" alt="Figura decorativa personaje rojo" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Repo Rojo</h4>
+                        <p>Figura decorativa impresa en PLA, perfecta para escritorio o colección.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">Decorativo</span>
+                            <span class="tag">PLA</span>
+                            <span class="tag">Diseño 3D</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Medidor de Tornillos Métrico -->
+            <div class="gallery-item-fixed" data-category="prototipos">
+                <div class="gallery-image-fixed">
+                    <img src="imagenes/Wood Screws Measure & Sort metric (Mesure vis aglobois).png" alt="Medidor de tornillos" class="gallery-icon-img" />
+                    <div class="gallery-overlay-fixed">
+                        <h4>Medidor de Tornillos</h4>
+                        <p>Herramienta impresa en 3D para medir la longitud y diámetro de tornillos de forma rápida y precisa.</p>
+                        <div class="gallery-tags">
+                            <span class="tag">3D Print</span>
+                            <span class="tag">Organización</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- Banner CTA -->
+        <section class="cta-banner-fixed">
+            <div class="cta-content">
+                <h2>¿Listo para Materializar tu Idea?</h2>
+                <p>Únete a más de 150 clientes satisfechos que han confiado en nosotros</p>
+                <div class="cta-buttons">
+                    <a href="personalizado.html" class="cta-button primary">
+                        <i class="fas fa-rocket"></i>
+                        Solicitar Cotización
+                    </a>
+                    <a href="tel:+524491234567" class="cta-button secondary">
+                        <i class="fas fa-phone"></i>
+                        Llamar Ahora
+                    </a>
+                </div>
+            </div>
+            <div class="cta-visual">
+                <div class="floating-cubes">
+                    <div class="cube cube-1"><i class="fas fa-cube"></i></div>
+                    <div class="cube cube-2"><i class="fas fa-cog"></i></div>
+                    <div class="cube cube-3"><i class="fas fa-gem"></i></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Impresión FDM</a></li>
+                    <li><a href="#">Impresión SLA</a></li>
+                    <li><a href="#">Diseño 3D</a></li>
+                    <li><a href="#">Prototipado</a></li>
+                    <li><a href="#">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="printer-animation.js"></script>
+</body>
+</html>

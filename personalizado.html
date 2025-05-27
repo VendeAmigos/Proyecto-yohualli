@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño Personalizado - Yohualli Impresiones 3D</title>
+    <meta name="description" content="Crea tu producto personalizado con Yohualli. Sube tu diseño, elige materiales, colores y tamaños para obtener un producto único.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="personalizado.html">Personalizado</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main style="padding-top: 120px;">
+        <!-- Hero de Personalización -->
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h1 class="slide-in-left">Diseño Personalizado</h1>
+                <p class="slide-in-right">Convierte tu idea en realidad. Sube tu diseño y personalízalo a tu gusto</p>
+            </div>
+        </section>
+
+        <!-- Formulario de Personalización -->
+        <section class="section">
+            <div class="form-container">
+                <div class="form-card">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <h2 style="color: var(--white); margin-bottom: 1rem; font-size: 2rem;">Crea tu producto único</h2>
+                        <p style="color: var(--text-gray);">Sigue estos pasos para personalizar tu producto y obtener una cotización instantánea</p>
+                    </div>
+
+                    <!-- Paso 1: Subir archivo -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center;">
+                            <span style="background: var(--gradient-1); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 1rem; font-weight: bold;">1</span>
+                            Sube tu diseño
+                        </h3>
+                        
+                        <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Arrastra tu archivo aquí o haz clic para seleccionar</h4>
+                            <p>Formatos soportados: STL, OBJ, 3MF, PLY</p>
+                            <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">Tamaño máximo: 50MB</p>
+                            <input type="file" id="fileInput" style="display: none;" accept=".stl,.obj,.3mf,.ply" onchange="handleFileUpload(this)">
+                        </div>
+                    </div>
+
+                    <!-- Paso 2: Opciones de personalización -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center;">
+                            <span style="background: var(--gradient-1); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 1rem; font-weight: bold;">2</span>
+                            Personaliza tu producto
+                        </h3>
+                        
+                        <div class="options-grid">
+                            <div class="option-group">
+                                <h4><i class="fas fa-layer-group"></i> Material</h4>
+                                <select id="material" onchange="updatePrice()">
+                                    <option value="pla">PLA - $5/g (Recomendado)</option>
+                                    <option value="abs">ABS - $7/g (Resistente)</option>
+                                    <option value="petg">PETG - $8/g (Transparente)</option>
+                                    <option value="tpu">TPU - $12/g (Flexible)</option>
+                                    <option value="resina">Resina - $15/g (Alta precisión)</option>
+                                </select>
+                                <small style="color: var(--text-gray); margin-top: 0.5rem; display: block;">
+                                    PLA es ideal para principiantes, ABS para piezas funcionales
+                                </small>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4><i class="fas fa-palette"></i> Color</h4>
+                                <div class="color-options">
+                                    <div class="color-option" style="background: #ffffff" data-color="Blanco" onclick="selectColor(this)" title="Blanco"></div>
+                                    <div class="color-option" style="background: #000000" data-color="Negro" onclick="selectColor(this)" title="Negro"></div>
+                                    <div class="color-option" style="background: #ff0000" data-color="Rojo" onclick="selectColor(this)" title="Rojo"></div>
+                                    <div class="color-option" style="background: #00ff00" data-color="Verde" onclick="selectColor(this)" title="Verde"></div>
+                                    <div class="color-option" style="background: #0000ff" data-color="Azul" onclick="selectColor(this)" title="Azul"></div>
+                                    <div class="color-option" style="background: #ffff00" data-color="Amarillo" onclick="selectColor(this)" title="Amarillo"></div>
+                                    <div class="color-option" style="background: #ff00ff" data-color="Magenta" onclick="selectColor(this)" title="Magenta"></div>
+                                    <div class="color-option" style="background: #00ffff" data-color="Cian" onclick="selectColor(this)" title="Cian"></div>
+                                    <div class="color-option" style="background: #ffa500" data-color="Naranja" onclick="selectColor(this)" title="Naranja"></div>
+                                    <div class="color-option" style="background: #800080" data-color="Púrpura" onclick="selectColor(this)" title="Púrpura"></div>
+                                </div>
+                                <small style="color: var(--text-gray); margin-top: 0.5rem; display: block;">
+                                    Colores adicionales disponibles bajo pedido
+                                </small>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4><i class="fas fa-expand-arrows-alt"></i> Tamaño</h4>
+                                <select id="size" onchange="updatePrice()">
+                                    <option value="small">Pequeño (hasta 5cm) - 1x</option>
+                                    <option value="medium">Mediano (hasta 10cm) - 2x</option>
+                                    <option value="large">Grande (hasta 15cm) - 3x</option>
+                                    <option value="xlarge">Extra Grande (hasta 20cm) - 4x</option>
+                                </select>
+                                <small style="color: var(--text-gray); margin-top: 0.5rem; display: block;">
+                                    El precio se ajusta según las dimensiones finales
+                                </small>
+                            </div>
+                            
+                            <div class="option-group">
+                                <h4><i class="fas fa-cog"></i> Calidad de Impresión</h4>
+                                <select id="quality" onchange="updatePrice()">
+                                    <option value="draft">Borrador - 0.3mm - 1x (Rápido)</option>
+                                    <option value="normal" selected>Normal - 0.2mm - 1.5x (Equilibrado)</option>
+                                    <option value="high">Alta - 0.1mm - 2x (Detallado)</option>
+                                    <option value="ultra">Ultra - 0.05mm - 3x (Máximo detalle)</option>
+                                </select>
+                                <small style="color: var(--text-gray); margin-top: 0.5rem; display: block;">
+                                    Mayor calidad = más tiempo de impresión
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Especificaciones adicionales -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center;">
+                            <span style="background: var(--gradient-1); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 1rem; font-weight: bold;">3</span>
+                            Especificaciones adicionales
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="quantity"><i class="fas fa-hashtag"></i> Cantidad</label>
+                            <select id="quantity" onchange="updatePrice()">
+                                <option value="1">1 unidad</option>
+                                <option value="2">2 unidades (-5%)</option>
+                                <option value="5">5 unidades (-10%)</option>
+                                <option value="10">10 unidades (-15%)</option>
+                                <option value="25">25 unidades (-20%)</option>
+                                <option value="50">50+ unidades (Cotización especial)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="infill"><i class="fas fa-percentage"></i> Relleno (%)</label>
+                            <select id="infill" onchange="updatePrice()">
+                                <option value="15">15% - Liviano (Decorativo)</option>
+                                <option value="25" selected>25% - Estándar (Equilibrado)</option>
+                                <option value="50">50% - Resistente (Funcional)</option>
+                                <option value="75">75% - Muy resistente (Industrial)</option>
+                                <option value="100">100% - Sólido (Máxima resistencia)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customNotes"><i class="fas fa-sticky-note"></i> Notas adicionales</label>
+                            <textarea id="customNotes" rows="4" placeholder="Describe cualquier detalle específico, acabados especiales, tolerancias, colores personalizados, o cualquier requerimiento especial para tu proyecto..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4: Resumen y cotización -->
+                    <div class="custom-preview">
+                        <h3 style="color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center;">
+                            <span style="background: var(--gradient-1); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 1rem; font-weight: bold;">4</span>
+                            Resumen de tu pedido
+                        </h3>
+                        
+                        <div id="orderSummary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Archivo:</strong><br>
+                                <span id="fileName">No seleccionado</span>
+                            </div>
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Material:</strong><br>
+                                <span id="selectedMaterial">PLA</span>
+                            </div>
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Color:</strong><br>
+                                <span id="selectedColor">No seleccionado</span>
+                            </div>
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Tamaño:</strong><br>
+                                <span id="selectedSize">Pequeño</span>
+                            </div>
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Calidad:</strong><br>
+                                <span id="selectedQuality">Normal</span>
+                            </div>
+                            <div style="background: var(--accent-gray); padding: 1rem; border-radius: 10px;">
+                                <strong style="color: var(--neon-blue);">Cantidad:</strong><br>
+                                <span id="selectedQuantity">1 unidad</span>
+                            </div>
+                        </div>
+                        
+                        <div class="total-price">
+                            <i class="fas fa-calculator"></i> Precio estimado: $<span id="estimatedPrice">50</span>
+                            <br><small style="opacity: 0.8;">*Precio final puede variar según las dimensiones exactas del modelo</small>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="cta-button" onclick="submitCustomOrder()" style="width: 100%; font-size: 1.2rem; padding: 1.5rem;">
+                            <i class="fas fa-paper-plane"></i> Solicitar Cotización
+                        </button>
+                        <p style="color: var(--text-gray); margin-top: 1rem; font-size: 0.9rem;">
+                            Recibirás una cotización detallada en menos de 24 horas
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Información adicional -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 class="section-title">¿Cómo funciona?</h2>
+                <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="product-card" style="text-align: center;">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-upload" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name" style="font-size: 1.2rem;">1. Sube tu diseño</h3>
+                        <p style="color: var(--text-gray);">
+                            Carga tu archivo 3D en formato STL, OBJ o 3MF. Si no tienes diseño, podemos crearlo por ti.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card" style="text-align: center;">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-sliders-h" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name" style="font-size: 1.2rem;">2. Personaliza</h3>
+                        <p style="color: var(--text-gray);">
+                            Selecciona material, color, tamaño y calidad. Obtén una cotización automática al instante.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card" style="text-align: center;">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-comments" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name" style="font-size: 1.2rem;">3. Confirmamos</h3>
+                        <p style="color: var(--text-gray);">
+                            Te contactamos para confirmar detalles y ajustar el precio final antes de iniciar la producción.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card" style="text-align: center;">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-print" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name" style="font-size: 1.2rem;">4. Imprimimos</h3>
+                        <p style="color: var(--text-gray);">
+                            Iniciamos la producción con tecnología de vanguardia y control de calidad riguroso.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Impresión FDM</a></li>
+                    <li><a href="#">Impresión SLA</a></li>
+                    <li><a href="#">Diseño 3D</a></li>
+                    <li><a href="#">Prototipado</a></li>
+                    <li><a href="#">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Yohualli Impresiones 3D</title>
+    <meta name="description" content="Descubre todos nuestros servicios de impresión 3D: FDM, SLA, SLS, diseño 3D, prototipado rápido, consultoría técnica y más.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="personalizado.html">Personalizado</a></li>
+                <li><a href="servicios.html" class="active">Servicios</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main style="padding-top: 120px;">
+        <!-- Hero de Servicios -->
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero-content">
+                <h1 class="slide-in-left">Nuestros Servicios</h1>
+                <p class="slide-in-right">Soluciones completas en tecnología de impresión 3D para cada necesidad</p>
+            </div>
+        </section>
+
+        <!-- Servicios Principales -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">Servicios Especializados</h2>
+                
+                <div class="services-main-grid">
+                    <!-- Impresión FDM -->
+                    <div class="service-card premium fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Impresión FDM</h3>
+                            <p class="service-subtitle">Fused Deposition Modeling</p>
+                            <p class="service-description">
+                                Ideal para prototipos funcionales, piezas grandes y producción en serie. 
+                                Ofrecemos más de 15 materiales diferentes incluyendo PLA, ABS, PETG, TPU y materiales técnicos.
+                            </p>
+                            <div class="service-features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Resolución hasta 0.1mm</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Volumen máximo 30x30x40cm</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>15+ materiales disponibles</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Entrega en 24-72h</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <span class="price-from">Desde</span>
+                                <span class="price-amount">$5/gramo</span>
+                            </div>
+                            <a href="contacto.html" class="service-btn">Solicitar Cotización</a>
+                        </div>
+                    </div>
+
+                    <!-- Impresión SLA -->
+                    <div class="service-card premium fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Impresión SLA</h3>
+                            <p class="service-subtitle">Stereolithography</p>
+                            <p class="service-description">
+                                Máxima precisión y acabado superficial excepcional. Perfecto para joyería, 
+                                miniaturas detalladas, modelos dentales y aplicaciones que requieren alta resolución.
+                            </p>
+                            <div class="service-features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Resolución hasta 0.025mm</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Acabado superficial premium</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Resinas especializadas</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Post-procesado incluido</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <span class="price-from">Desde</span>
+                                <span class="price-amount">$15/gramo</span>
+                            </div>
+                            <a href="contacto.html" class="service-btn">Solicitar Cotización</a>
+                        </div>
+                    </div>
+
+                    <!-- Impresión SLS -->
+                    <div class="service-card premium fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Impresión SLS</h3>
+                            <p class="service-subtitle">Selective Laser Sintering</p>
+                            <p class="service-description">
+                                Tecnología industrial para piezas funcionales complejas sin soportes. 
+                                Ideal para aplicaciones aeroespaciales, automotrices y prototipos de ingeniería.
+                            </p>
+                            <div class="service-features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Sin necesidad de soportes</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Geometrías complejas</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Materiales técnicos</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Resistencia mecánica alta</span>
+                                </div>
+                            </div>
+                            <div class="service-pricing">
+                                <span class="price-from">Desde</span>
+                                <span class="price-amount">$25/gramo</span>
+                            </div>
+                            <a href="contacto.html" class="service-btn">Solicitar Cotización</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios Complementarios -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">Servicios Complementarios</h2>
+                
+                <div class="products-grid">
+                    <!-- Diseño 3D -->
+                    <div class="product-card slide-in-left">
+                        <div class="product-image">
+                            <i class="fas fa-drafting-compass"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Diseño 3D</h3>
+                            <p class="product-description">
+                                Creamos modelos 3D desde cero basándose en tus especificaciones, bocetos o ideas. 
+                                Incluye modelado CAD profesional y optimización para impresión.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> Entrega: 3-7 días
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> Desde $500
+                                </div>
+                            </div>
+                            <a href="personalizado.html" class="add-to-cart">Solicitar Diseño</a>
+                        </div>
+                    </div>
+
+                    <!-- Prototipado Rápido -->
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Prototipado Rápido</h3>
+                            <p class="product-description">
+                                Desarrollo acelerado de prototipos funcionales para validación de diseños. 
+                                Incluye múltiples iteraciones y testing.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> Entrega: 24-48h
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> Desde $300
+                                </div>
+                            </div>
+                            <a href="contacto.html" class="add-to-cart">Consultar</a>
+                        </div>
+                    </div>
+
+                    <!-- Consultoría Técnica -->
+                    <div class="product-card slide-in-right">
+                        <div class="product-image">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Consultoría Técnica</h3>
+                            <p class="product-description">
+                                Asesoría especializada en selección de materiales, optimización de diseños 
+                                y estrategias de manufactura aditiva.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> Sesiones de 1-2h
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> $800/hora
+                                </div>
+                            </div>
+                            <a href="contacto.html" class="add-to-cart">Agendar Consulta</a>
+                        </div>
+                    </div>
+
+                    <!-- Post-Procesado -->
+                    <div class="product-card slide-in-left">
+                        <div class="product-image">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Post-Procesado</h3>
+                            <p class="product-description">
+                                Acabados profesionales: lijado, pintura, curado UV, 
+                                lavado químico, y tratamientos especiales de superficie.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> 1-3 días extra
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> Variable
+                                </div>
+                            </div>
+                            <a href="contacto.html" class="add-to-cart">Consultar</a>
+                        </div>
+                    </div>
+
+                    <!-- Capacitación -->
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Capacitación</h3>
+                            <p class="product-description">
+                                Cursos y talleres sobre tecnologías de impresión 3D, 
+                                desde básico hasta avanzado. Para empresas e individuos.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> 4-8 horas
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> Desde $1,500
+                                </div>
+                            </div>
+                            <a href="contacto.html" class="add-to-cart">Info Cursos</a>
+                        </div>
+                    </div>
+
+                    <!-- Mantenimiento -->
+                    <div class="product-card slide-in-right">
+                        <div class="product-image">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Mantenimiento</h3>
+                            <p class="product-description">
+                                Servicio técnico especializado para impresoras 3D. 
+                                Calibración, reparación y optimización de equipos.
+                            </p>
+                            <div style="margin: 1rem 0;">
+                                <div style="color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-clock"></i> Servicio a domicilio
+                                </div>
+                                <div style="color: var(--neon-blue); font-size: 0.9rem;">
+                                    <i class="fas fa-dollar-sign"></i> Desde $600
+                                </div>
+                            </div>
+                            <a href="contacto.html" class="add-to-cart">Solicitar Servicio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proceso de Trabajo -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 class="section-title">Nuestro Proceso de Trabajo</h2>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Análisis de Requerimientos</h4>
+                            <p>Evaluamos tu proyecto, especificaciones técnicas y objetivos para recomendar la mejor solución.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Cotización Detallada</h4>
+                            <p>Proporcionamos un presupuesto transparente con tiempos de entrega y especificaciones técnicas.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Preparación y Producción</h4>
+                            <p>Optimizamos el archivo, seleccionamos materiales y ejecutamos la impresión con control de calidad.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Entrega y Seguimiento</h4>
+                            <p>Entregamos tu proyecto terminado con garantía y seguimiento post-entrega para asegurar satisfacción.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparativa de Tecnologías -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">Comparativa de Tecnologías</h2>
+                
+                <div class="comparison-table">
+                    <div class="comparison-header">
+                        <div class="comparison-cell">Característica</div>
+                        <div class="comparison-cell">FDM</div>
+                        <div class="comparison-cell">SLA</div>
+                        <div class="comparison-cell">SLS</div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-cell">Resolución</div>
+                        <div class="comparison-cell">0.1-0.3mm</div>
+                        <div class="comparison-cell">0.025-0.1mm</div>
+                        <div class="comparison-cell">0.1-0.15mm</div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-cell">Velocidad</div>
+                        <div class="comparison-cell">Rápida</div>
+                        <div class="comparison-cell">Media</div>
+                        <div class="comparison-cell">Media-Lenta</div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-cell">Costo</div>
+                        <div class="comparison-cell">Bajo</div>
+                        <div class="comparison-cell">Medio</div>
+                        <div class="comparison-cell">Alto</div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-cell">Materiales</div>
+                        <div class="comparison-cell">Amplia variedad</div>
+                        <div class="comparison-cell">Resinas especializadas</div>
+                        <div class="comparison-cell">Polvos técnicos</div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-cell">Aplicaciones</div>
+                        <div class="comparison-cell">Prototipos, producción</div>
+                        <div class="comparison-cell">Joyería, miniaturas</div>
+                        <div class="comparison-cell">Piezas funcionales</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llamada a la Acción -->
+        <section class="section">
+            <div class="cta-banner-fixed">
+                <div class="cta-content">
+                    <h2>¿Necesitas una Solución Personalizada?</h2>
+                    <p>Nuestro equipo de expertos está listo para desarrollar la solución perfecta para tu proyecto</p>
+                    <div class="cta-buttons">
+                        <a href="contacto.html" class="cta-button primary">
+                            <i class="fas fa-phone"></i>
+                            Consulta Gratuita
+                        </a>
+                        <a href="personalizado.html" class="cta-button secondary">
+                            <i class="fas fa-cog"></i>
+                            Cotización Express
+                        </a>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="floating-cubes">
+                        <div class="cube cube-1"><i class="fas fa-print"></i></div>
+                        <div class="cube cube-2"><i class="fas fa-gem"></i></div>
+                        <div class="cube cube-3"><i class="fas fa-industry"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="servicios.html#fdm">Impresión FDM</a></li>
+                    <li><a href="servicios.html#sla">Impresión SLA</a></li>
+                    <li><a href="servicios.html#sls">Impresión SLS</a></li>
+                    <li><a href="servicios.html#diseno">Diseño 3D</a></li>
+                    <li><a href="servicios.html#consultoria">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Yohualli Impresiones 3D</title>
+    <meta name="description" content="Contáctanos para cotizaciones, consultas técnicas o cualquier pregunta sobre nuestros servicios de impresión 3D. Estamos aquí para ayudarte.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="personalizado.html">Personalizado</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html" class="active">Contacto</a></li>
+             </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main style="padding-top: 120px;">
+        <!-- Hero de Contacto -->
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h1 class="slide-in-left">Contáctanos</h1>
+                <p class="slide-in-right">Estamos aquí para ayudarte a materializar tus ideas. Hablemos de tu próximo proyecto</p>
+            </div>
+        </section>
+
+        <!-- Información de Contacto Rápida -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div class="contact-info">
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-phone-alt"></i>
+                        <h4>Teléfono</h4>
+                        <p>
+                            <strong>Principal:</strong> +52 449 123 4567<br>
+                            <strong>WhatsApp:</strong> +52 449 765 4321<br>
+                            <strong>Horario:</strong> Lun - Vie: 9:00 AM - 6:00 PM
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>
+                            <strong>General:</strong> info@yohualli.com<br>
+                            <strong>Ventas:</strong> ventas@yohualli.com<br>
+                            <strong>Soporte:</strong> soporte@yohualli.com
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Ubicación</h4>
+                        <p>
+                            <strong>Dirección:</strong><br>
+                            Av. Universidad 123, Piso 2<br>
+                            Col. Centro, Aguascalientes<br>
+                            CP 20130, México
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-clock"></i>
+                        <h4>Horarios</h4>
+                        <p>
+                            <strong>Lunes - Viernes:</strong> 9:00 AM - 6:00 PM<br>
+                            <strong>Sábados:</strong> 9:00 AM - 2:00 PM<br>
+                            <strong>Domingos:</strong> Cerrado<br>
+                            <small style="color: var(--neon-blue);">Atención de emergencias 24/7</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario de Contacto -->
+        <section class="section">
+            <div class="form-container">
+                <div class="form-card">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <h2 style="color: var(--white); margin-bottom: 1rem; font-size: 2.5rem;">Envíanos un Mensaje</h2>
+                        <p style="color: var(--text-gray); font-size: 1.1rem;">
+                            ¿Tienes una pregunta, proyecto en mente, o necesitas una cotización? 
+                            Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
+                        </p>
+                    </div>
+                    
+                    <form id="contactForm" onsubmit="submitContact(event)">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                            <div class="form-group">
+                                <label for="name">
+                                    <i class="fas fa-user"></i> Nombre completo *
+                                </label>
+                                <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i> Correo electrónico *
+                                </label>
+                                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                            <div class="form-group">
+                                <label for="phone">
+                                    <i class="fas fa-phone"></i> Teléfono
+                                </label>
+                                <input type="tel" id="phone" name="phone" placeholder="+52 449 123 4567">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">
+                                    <i class="fas fa-building"></i> Empresa/Institución
+                                </label>
+                                <input type="text" id="company" name="company" placeholder="Nombre de tu empresa (opcional)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">
+                                <i class="fas fa-tag"></i> Asunto *
+                            </label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Selecciona el tipo de consulta</option>
+                                <option value="cotizacion">💰 Solicitar cotización</option>
+                                <option value="soporte">🔧 Soporte técnico</option>
+                                <option value="informacion">ℹ️ Información general</option>
+                                <option value="colaboracion">🤝 Colaboración empresarial</option>
+                                <option value="prototipo">🛠️ Desarrollo de prototipo</option>
+                                <option value="materiales">🧪 Consulta sobre materiales</option>
+                                <option value="capacitacion">🎓 Capacitación y talleres</option>
+                                <option value="otro">📋 Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project_type">
+                                <i class="fas fa-project-diagram"></i> Tipo de proyecto
+                            </label>
+                            <select id="project_type" name="project_type">
+                                <option value="">Selecciona el tipo de proyecto (opcional)</option>
+                                <option value="prototipo">Prototipo funcional</option>
+                                <option value="figura">Figura o miniatura</option>
+                                <option value="repuesto">Repuesto o pieza de recambio</option>
+                                <option value="decorativo">Objeto decorativo</option>
+                                <option value="arquitectonico">Modelo arquitectónico</option>
+                                <option value="medico">Aplicación médica</option>
+                                <option value="educativo">Proyecto educativo</option>
+                                <option value="industrial">Aplicación industrial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">
+                                <i class="fas fa-dollar-sign"></i> Presupuesto estimado
+                            </label>
+                            <select id="budget" name="budget">
+                                <option value="">Selecciona tu rango de presupuesto (opcional)</option>
+                                <option value="100-500">$100 - $500 MXN</option>
+                                <option value="500-1000">$500 - $1,000 MXN</option>
+                                <option value="1000-2500">$1,000 - $2,500 MXN</option>
+                                <option value="2500-5000">$2,500 - $5,000 MXN</option>
+                                <option value="5000-10000">$5,000 - $10,000 MXN</option>
+                                <option value="10000+">Más de $10,000 MXN</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timeline">
+                                <i class="fas fa-calendar-alt"></i> Tiempo requerido
+                            </label>
+                            <select id="timeline" name="timeline">
+                                <option value="">¿Cuándo necesitas el proyecto? (opcional)</option>
+                                <option value="urgente">🚨 Urgente (1-3 días)</option>
+                                <option value="rapido">⚡ Rápido (1 semana)</option>
+                                <option value="normal">📅 Normal (2-3 semanas)</option>
+                                <option value="flexible">🕰️ Flexible (1 mes o más)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">
+                                <i class="fas fa-comment-alt"></i> Mensaje *
+                            </label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="6" 
+                                required 
+                                placeholder="Describe tu proyecto en detalle: ¿qué necesitas imprimir? ¿tienes archivos 3D? ¿qué materiales prefieres? ¿hay alguna especificación técnica importante? Mientras más detalles proporciones, mejor podremos ayudarte."></textarea>
+                            <div id="messageCounter" style="text-align: right; color: var(--text-gray); font-size: 0.8rem; margin-top: 0.5rem;">0 caracteres</div>
+                        </div>
+                        
+                        <div style="background: var(--accent-gray); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+                            <h4 style="color: var(--neon-blue); margin-bottom: 1rem;">
+                                <i class="fas fa-lightbulb"></i> Información útil para tu cotización:
+                            </h4>
+                            <ul style="color: var(--text-gray); line-height: 1.8; padding-left: 1.5rem;">
+                                <li>Dimensiones aproximadas del objeto</li>
+                                <li>Cantidad de piezas necesarias</li>
+                                <li>Material preferido (PLA, ABS, PETG, etc.)</li>
+                                <li>Color deseado</li>
+                                <li>Nivel de detalle requerido</li>
+                                <li>Si tienes archivos 3D o necesitas diseño</li>
+                                <li>Fecha límite de entrega</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; margin-bottom: 2rem; color: var(--text-gray);">
+                            <input type="checkbox" id="privacy" name="privacy" required style="margin-right: 1rem; transform: scale(1.2);">
+                            <label for="privacy" style="font-size: 0.95rem; line-height: 1.6;">
+                                Acepto que mis datos sean utilizados para contactarme sobre mi consulta. 
+                                Yohualli respeta tu privacidad y no compartiremos tu información con terceros.
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; margin-bottom: 2rem; color: var(--text-gray);">
+                            <input type="checkbox" id="newsletter" name="newsletter" style="margin-right: 1rem; transform: scale(1.2);">
+                            <label for="newsletter" style="font-size: 0.95rem; line-height: 1.6;">
+                                Quiero recibir noticias sobre nuevos materiales, tecnologías y ofertas especiales (opcional).
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="cta-button" style="width: 100%; font-size: 1.3rem; padding: 1.5rem;">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                        </button>
+                        
+                        <p style="text-align: center; color: var(--text-gray); margin-top: 1.5rem; font-size: 0.9rem;">
+                            <i class="fas fa-clock"></i> Tiempo de respuesta promedio: <strong style="color: var(--neon-blue);">4-6 horas</strong> en días hábiles
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Métodos de Contacto Alternativos -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 class="section-title">Otras Formas de Contactarnos</h2>
+                <div class="products-grid">
+                    <div class="product-card slide-in-left">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                        </div>
+                        <h3 class="product-name">WhatsApp Business</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                            Chatea con nosotros directamente. Respuesta inmediata en horario laboral.
+                        </p>
+                        <a href="https://wa.me/524497654321" target="_blank" class="add-to-cart" style="background: #25D366;">
+                            <i class="fab fa-whatsapp"></i> Abrir Chat
+                        </a>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-video" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Videollamada</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                            Agenda una consulta virtual para revisar tu proyecto en detalle.
+                        </p>
+                        <a href="mailto:info@yohualli.com?subject=Solicitar videollamada" class="add-to-cart">
+                            <i class="fas fa-calendar-plus"></i> Agendar Cita
+                        </a>
+                    </div>
+                    
+                    <div class="product-card slide-in-right">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-store" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Visita Nuestro Taller</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                            Ven a conocer nuestras instalaciones y equipos. Cita previa requerida.
+                        </p>
+                        <a href="tel:+524491234567" class="add-to-cart">
+                            <i class="fas fa-phone"></i> Llamar Ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+<section class="section">
+    <h2 class="section-title">Encuentra Nuestro Taller</h2>
+    <div style="background: var(--accent-gray); border-radius: 30px; padding: 2.5rem 1rem 2rem 1rem; max-width: 1400px; margin: 0 auto 2rem auto;">
+        <!-- Mapa (tu iframe personalizado, pero adaptado a ocupar el 100% del contenedor) -->
+        <div style="width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 2rem;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3704.6634781325724!2d-102.28983982401607!3d21.793281561080494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429ed3b6cb6f827%3A0xcc0796eb9a89637b!2sUAA%20CAMPUS%20SUR!5e0!3m2!1ses-419!2smx!4v1748301598958!5m2!1ses-419!2smx"
+                width="100%"
+                height="400"
+                style="border:0; display:block;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <!-- Grid de transporte -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: left;">
+            <div>
+                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                    <i class="fas fa-car"></i> En Auto
+                </h4>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">
+                    Estacionamiento gratuito disponible. 
+                    Fácil acceso desde el centro de la ciudad.
+                </p>
+            </div>
+            <div>
+                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                    <i class="fas fa-bus"></i> Transporte Público
+                </h4>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">
+                    Rutas 5, 12 y 18. Parada "Universidad" 
+                    a 2 cuadras del taller.
+                </p>
+            </div>
+            <div>
+                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                    <i class="fas fa-walking"></i> A Pie
+                </h4>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">
+                    A 10 minutos caminando del centro histórico.
+                    Zona segura y bien iluminada.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Impresión FDM</a></li>
+                    <li><a href="#">Impresión SLA</a></li>
+                    <li><a href="#">Diseño 3D</a></li>
+                    <li><a href="#">Prototipado</a></li>
+                    <li><a href="#">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Contador de caracteres para el mensaje
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageField = document.getElementById('message');
+            const counter = document.getElementById('messageCounter');
+            
+            function updateCounter() {
+                const length = messageField.value.length;
+                counter.textContent = `${length} caracteres`;
+                
+                if (length < 10) {
+                    counter.style.color = '#ff4444';
+                } else if (length > 500) {
+                    counter.style.color = '#ffaa00';
+                } else {
+                    counter.style.color = 'var(--neon-blue)';
+                }
+            }
+            
+            messageField.addEventListener('input', updateCounter);
+            updateCounter();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Yohualli Impresiones 3D</title>
+    <meta name="description" content="Explora nuestro catálogo completo de productos de impresión 3D: figuras personalizadas, prototipos, arte decorativo y más.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+<li><a href="productos.html" class="active">Productos</a></li>
+<li><a href="personalizado.html">Personalizado</a></li>
+<li><a href="servicios.html">Servicios</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main style="padding-top: 120px;">
+        <!-- Hero de Productos -->
+        <section class="hero" style="min-height: 60vh; position: relative;">
+            <div class="hero-content">
+                <h1 class="slide-in-left">Nuestros Productos</h1>
+                <p class="slide-in-right">Descubre nuestra amplia gama de productos de impresión 3D diseñados para satisfacer todas tus necesidades</p>
+            </div>
+        </section>
+
+        <!-- Filtros y Productos -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
+                
+                <!-- Productos en Tendencia -->
+                <div style="margin-bottom: 5rem;">
+                    <h2 style="text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 3rem; background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase;">
+                        Productos en Tendencia
+                    </h2>
+                    <div class="products-grid" id="trendingGrid">
+                        <div class="product-card fade-in">
+                            <div class="product-image">
+                                <img src="imagenes/Firewad-AAP-01-MP5-Lower-8-Photoroom.png"Figura Personalizada"></div><div class="product-info">
+                                    <h3 class="product-name">Receptor Firewad MP5 AAP01</h3>
+                                    <p class="product-description">Receptor inferior compatible con AAP01 estilo MP5 para Airsoft.</p>
+                                    <p class="product-price">$299</p>
+                                    <button class="add-to-cart" onclick="addToCart(1, 'Figura Personalizada', 299)">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <span>Agregar al Carrito</span>
+                                    </button>
+                                </div>
+                            </div>             
+                        <div class="product-card fade-in">
+                            <div class="product-image">
+                                <img src="imagenes/Phare-Photoroom.png" alt="Miniatura Arquitectónica">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Faro</h3>
+                                <p class="product-description">Miniatura arquitectónica de faro, ideal para maquetas y exhibición.</p>
+                                <p class="product-price">$450</p>
+                                <button class="add-to-cart" onclick="addToCart(2, 'Miniatura Arquitectónica', 450)">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>Agregar al Carrito</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card fade-in">
+                            <div class="product-image">
+                                <img src="imagenes/ESTUCHE para CORTADORA DE PIZZA - (MAKITA).png" alt="Estuche para Cortadora de Pizza Makita">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Estuche para Cortadora de Pizza (Makita)</h3>
+                                <p class="product-description">Estuche protector diseñado para cortadora de pizza Makita.</p>
+                                <p class="product-price">$650</p>
+                                <button class="add-to-cart" onclick="addToCart(3, 'Estuche para Cortadora de Pizza', 650)">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>Agregar al Carrito</span>
+                                </button>
+                            </div>
+                        </div>                  
+                        <div class="product-card fade-in">
+                            <div class="product-image">
+                                <img src="imagenes/Pistola D.va.png" alt="Pistola D.va">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">Pistola D.va</h3>
+                                <p class="product-description">Miniatura impresa en 3D inspirada en la pistola de D.va de Overwatch.</p>
+                                <p class="product-price">$200</p>
+                                <button class="add-to-cart" onclick="addToCart(4, 'Pistola D.va', 200)">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>Agregar al Carrito</span>
+                                </button>
+                            </div></div>                  
+                            <div class="product-card fade-in">
+                                <div class="product-image">
+                                    <img src="imagenes/ITADORI YUJI - JUJUTSU KAISEN.png" alt="Itadori Yuji - Jujutsu Kaisen">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Itadori Yuji - Jujutsu Kaisen</h3>
+                                    <p class="product-description">Figura impresa en 3D de Itadori Yuji, inspirada en Jujutsu Kaisen.</p>
+                                    <p class="product-price">$180</p>
+                                    <button class="add-to-cart" onclick="addToCart(5, 'Itadori Yuji - Jujutsu Kaisen', 180)">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <span>Agregar al Carrito</span>
+                                    </button>
+                                </div></div>
+                                <div class="product-card fade-in">
+                                    <div class="product-image">
+                                        <img src="imagenes/Malenia - Anillo Elden.png" alt="Malenia - Elden Ring">
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="product-name">Malenia - Anillo Elden</h3>
+                                        <p class="product-description">Anillo inspirado en Malenia de Elden Ring, impreso en 3D.</p>
+                                        <p class="product-price">$250</p>
+                                        <button class="add-to-cart" onclick="addToCart(6, 'Anillo Malenia - Elden Ring', 250)">
+                                            <i class="fas fa-cart-plus"></i>
+                                            <span>Agregar al Carrito</span>
+                                        </button>
+                                    </div></div>
+                </div>
+                <!-- Separador visual -->
+                <div style="width: 100%; height: 2px; background: var(--gradient-1); border-radius: 2px; margin: 4rem 0;"></div>
+
+                <!-- Título del catálogo completo -->
+                <h2 style="text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 3rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase;">
+                    Catálogo Completo
+                </h2>
+                
+                <!-- Filtros -->
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th-large"></i> Todos
+                    </button>
+                    <button class="filter-btn" data-filter="figuras">
+                        <i class="fas fa-cube"></i> Figuras
+                    </button>
+                    <button class="filter-btn" data-filter="prototipos">
+                        <i class="fas fa-tools"></i> Prototipos
+                    </button>
+                    <button class="filter-btn" data-filter="decorativos">
+                        <i class="fas fa-palette"></i> Decorativos
+                    </button>
+                    <button class="filter-btn" data-filter="funcionales">
+                        <i class="fas fa-cog"></i> Funcionales
+                    </button>
+                </div>
+
+                <!-- Grid de Productos -->
+                <div class="products-grid" id="allProductsGrid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+
+                <!-- Información adicional -->
+                <div style="margin-top: 4rem; text-align: center;">
+                    <div style="background: var(--secondary-black); padding: 3rem; border-radius: 25px; border: 1px solid var(--accent-gray);">
+                        <h3 style="color: var(--white); margin-bottom: 1.5rem; font-size: 1.5rem;">¿No encuentras lo que buscas?</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 2rem; line-height: 1.8;">
+                            Ofrecemos servicios de diseño e impresión personalizada. Compártenos tu idea y la haremos realidad con la más alta calidad.
+                        </p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="personalizado.html" class="cta-button">
+                                <i class="fas fa-pencil-ruler"></i> Diseño Personalizado
+                            </a>
+                            <a href="contacto.html" class="cta-button" style="background: var(--gradient-2);">
+                                <i class="fas fa-phone"></i> Consulta Directa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Impresión FDM</a></li>
+                    <li><a href="#">Impresión SLA</a></li>
+                    <li><a href="#">Diseño 3D</a></li>
+                    <li><a href="#">Prototipado</a></li>
+                    <li><a href="#">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

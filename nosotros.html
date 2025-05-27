@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - Yohualli Impresiones 3D</title>
+    <meta name="description" content="Conoce a Yohualli, empresa líder en impresión 3D en México. Nuestro equipo, misión, visión y compromiso con la innovación.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">YOHUALLI</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+<li><a href="productos.html">Productos</a></li>
+<li><a href="personalizado.html">Personalizado</a></li>
+<li><a href="servicios.html">Servicios</a></li>
+                <li><a href="nosotros.html" class="active">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay del carrito -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div style="text-align: center; color: var(--text-gray); padding: 2rem;">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main style="padding-top: 120px;">
+        <!-- Hero de Nosotros -->
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero-content">
+                <h1 class="slide-in-left">Sobre Yohualli</h1>
+                <p class="slide-in-right">Transformando el futuro de la manufactura con tecnología de impresión 3D de vanguardia</p>
+            </div>
+        </section>
+
+        <!-- Historia y Misión -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 4rem; align-items: center;">
+                    <div class="slide-in-left">
+                        <h2 style="color: var(--white); font-size: 2.5rem; margin-bottom: 2rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            Nuestra Historia
+                        </h2>
+                        <p style="color: var(--text-gray); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            Fundada en 2020 en el corazón de Aguascalientes, México, <strong style="color: var(--neon-blue);">Yohualli</strong> nació con la visión de democratizar la tecnología de impresión 3D y hacerla accesible para todos.
+                        </p>
+                        <p style="color: var(--text-gray); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            El nombre "Yohualli" proviene del náhuatl y significa "noche", simbolizando el momento de quietud donde nacen las mejores ideas, que luego transformamos en realidad tangible a través de nuestras impresoras 3D.
+                        </p>
+                        <p style="color: var(--text-gray); line-height: 1.8; font-size: 1.1rem;">
+                            Desde nuestros humildes inicios con una sola impresora, hemos crecido hasta convertirnos en un referente de calidad e innovación en el sector de la manufactura aditiva en México.
+                        </p>
+                    </div>
+                    <div class="slide-in-right">
+                        <div style="background: var(--secondary-black); padding: 3rem; border-radius: 25px; border: 1px solid var(--accent-gray); position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%); pointer-events: none;"></div>
+                            <div style="text-align: center; position: relative; z-index: 1;">
+                                <i class="fas fa-cube" style="font-size: 4rem; color: var(--neon-blue); margin-bottom: 2rem;"></i>
+                                <h3 style="color: var(--white); font-size: 1.5rem; margin-bottom: 1rem;">Innovación Constante</h3>
+                                <p style="color: var(--text-gray); line-height: 1.6;">
+                                    Invertimos continuamente en nueva tecnología y capacitación para ofrecer siempre los mejores resultados a nuestros clientes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión, Visión y Valores -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">Nuestra Filosofía</h2>
+                <div class="products-grid">
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-bullseye" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Misión</h3>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Democratizar la fabricación digital y hacer accesible la tecnología de impresión 3D para todos, desde estudiantes y artistas hasta empresas y emprendedores, proporcionando soluciones innovadoras y de alta calidad.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-eye" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Visión</h3>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Convertirnos en la empresa líder en México en servicios de impresión 3D, siendo reconocidos por nuestra calidad, innovación y compromiso con la transformación digital de la manufactura.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 120px;">
+                            <i class="fas fa-heart" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Valores</h3>
+                        <p style="color: var(--text-gray); line-height: 1.7;">
+                            Calidad, innovación, sustentabilidad, transparencia y compromiso con nuestros clientes. Creemos en la tecnología como herramienta para mejorar la vida de las personas y el desarrollo del país.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nuestro Equipo -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">Conoce a Nuestro Equipo</h2>
+                <p style="text-align: center; color: var(--text-gray); margin-bottom: 4rem; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Un grupo de profesionales apasionados por la tecnología 3D, comprometidos con la excelencia y la innovación constante.
+                </p>
+                
+                <div class="team-grid">
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Carlos Mendoza Rivera</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Director General & Fundador</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Ingeniero en Mecatrónica con maestría en Manufactura Avanzada. 12 años de experiencia en fabricación digital y desarrollo de productos. Visionario y líder del proyecto Yohualli.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Mecatrónica</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Liderazgo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Ana Patricia Rodríguez</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Jefa de Producción</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Ingeniera en Materiales especializada en polímeros y procesamiento de materiales. Experta en optimización de procesos de impresión 3D y control de calidad. 8 años de experiencia.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Materiales</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Calidad</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Miguel Ángel Torres</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Director de Diseño</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Diseñador Industrial con especialización en modelado 3D y prototipado rápido. Creativo y técnico, transforma ideas complejas en modelos imprimibles. 10 años en el sector.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Diseño 3D</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">CAD</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Laura Vázquez Morales</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Gerente de Atención al Cliente</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Licenciada en Administración con especialización en servicio al cliente y gestión de proyectos. Coordinadora de proyectos personalizados y enlace directo con nuestros clientes.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Atención</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Gestión</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Roberto Silva Hernández</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Especialista Técnico</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Ingeniero en Sistemas con certificaciones en múltiples tecnologías de impresión 3D. Encargado del mantenimiento, calibración y optimización de equipos. 6 años de experiencia.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Técnico</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Software</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-avatar">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Sofia Ramírez Castro</h3>
+                        <p style="color: var(--neon-blue); font-weight: bold; margin-bottom: 1rem;">Coordinadora de Sustentabilidad</p>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Ingeniera Ambiental enfocada en procesos sustentables y economía circular. Desarrolla iniciativas eco-friendly y gestiona programas de reciclaje de materiales 3D.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; margin-right: 0.5rem;">Sustentabilidad</span>
+                            <span style="background: var(--accent-gray); color: var(--neon-blue); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">Eco-friendly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Por qué elegirnos -->
+        <section class="section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 class="section-title">¿Por qué elegir Yohualli?</h2>
+                <div class="products-grid">
+                    <div class="product-card slide-in-left">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-cogs" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Tecnología de Vanguardia</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Contamos con impresoras FDM, SLA y SLS de última generación, capaces de trabajar con los materiales más avanzados del mercado.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-medal" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Calidad Certificada</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Procesos de calidad ISO 9001, controles rigurosos en cada etapa y garantía completa en todos nuestros productos y servicios.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card slide-in-right">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-clock" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Tiempos Competitivos</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Optimizamos nuestros procesos para ofrecer los mejores tiempos de entrega sin comprometer la calidad del producto final.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card slide-in-left">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-handshake" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Atención Personalizada</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Cada cliente es único. Ofrecemos consultoría especializada y acompañamiento en todo el proceso de desarrollo.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card fade-in">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-leaf" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Compromiso Ambiental</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Utilizamos materiales biodegradables, reciclamos residuos y compensamos nuestra huella de carbono.
+                        </p>
+                    </div>
+                    
+                    <div class="product-card slide-in-right">
+                        <div class="product-image" style="height: 100px;">
+                            <i class="fas fa-graduation-cap" style="color: var(--neon-blue);"></i>
+                        </div>
+                        <h3 class="product-name">Innovación Continua</h3>
+                        <p style="color: var(--text-gray); line-height: 1.6;">
+                            Investigación constante, colaboración con universidades y participación activa en la comunidad maker mexicana.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="background: var(--secondary-black); padding: 4rem 2rem; border-radius: 25px; border: 1px solid var(--accent-gray); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%); pointer-events: none;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <h2 style="text-align: center; color: var(--white); margin-bottom: 3rem; font-size: 2.5rem;">Yohualli en Números</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">5000+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Productos Impresos</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">500+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Clientes Satisfechos</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">4</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Años de Experiencia</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">15+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Materiales Disponibles</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">98%</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Satisfacción del Cliente</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">24h</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Tiempo de Respuesta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ - Nueva sección agregada -->
+        <section class="section">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>¿Cuánto tiempo toma imprimir mi proyecto?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>El tiempo depende de la complejidad, tamaño y calidad. Proyectos simples: 1-3 días. 
+                            Proyectos complejos: 1-2 semanas. Te daremos un tiempo estimado preciso al evaluar tu archivo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>¿Qué formatos de archivo aceptan?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Aceptamos STL, OBJ, 3MF, PLY y otros formatos comunes. Si tienes archivos en 
+                            CAD (SolidWorks, AutoCAD, Fusion 360), también podemos trabajar con ellos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>¿Hacen envíos a toda la República?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sí, enviamos a todo México a través de paqueterías especializadas. 
+                            Los envíos locales en Aguascalientes son gratuitos para pedidos mayores a $500.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>¿Pueden crear el diseño 3D si no tengo archivo?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>¡Por supuesto! Nuestro equipo de diseño puede crear modelos 3D desde bocetos, 
+                            fotos, ideas o especificaciones técnicas. Este servicio tiene un costo adicional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>¿Ofrecen garantía en sus productos?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sí, ofrecemos garantía de calidad. Si el producto no cumple las especificaciones 
+                            acordadas, lo reimprimimos sin costo adicional. La garantía no cubre daños por uso o maltrato.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h2 style="color: var(--white); font-size: 2.5rem; margin-bottom: 1.5rem;">¿Listo para trabajar con nosotros?</h2>
+                <p style="color: var(--text-gray); font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.8;">
+                    Únete a los cientos de clientes que ya confían en Yohualli para sus proyectos de impresión 3D. 
+                    Contáctanos y descubre cómo podemos ayudarte a materializar tus ideas.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="contacto.html" class="cta-button">
+                        <i class="fas fa-phone"></i> Contáctanos
+                    </a>
+                    <a href="personalizado.html" class="cta-button" style="background: var(--gradient-2);">
+                        <i class="fas fa-pencil-ruler"></i> Diseño Personalizado
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yohualli</h3>
+                <p>Somos líderes en tecnología de impresión 3D en México, transformando ideas en realidad con precisión y calidad excepcional.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Impresión FDM</a></li>
+                    <li><a href="#">Impresión SLA</a></li>
+                    <li><a href="#">Diseño 3D</a></li>
+                    <li><a href="#">Prototipado</a></li>
+                    <li><a href="#">Consultoría</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Universidad 123, Aguascalientes, AGS</p>
+                <p><i class="fas fa-phone"></i> +52 449 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@yohualli.com</p>
+                <p><i class="fas fa-clock"></i> Lun - Vie: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Yohualli. Todos los derechos reservados. | Hecho con ❤️ en México</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Función para toggle FAQ
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('i');
+            
+            // Cerrar otros FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.querySelector('.faq-answer').style.display = 'none';
+                    item.querySelector('.faq-question i').style.transform = 'rotate(0deg)';
+                    item.style.background = 'var(--secondary-black)';
+                }
+            });
+            
+            // Toggle FAQ actual
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                faqItem.style.background = 'var(--secondary-black)';
+            } else {
+                answer.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                faqItem.style.background = 'var(--accent-gray)';
+            }
+        }
+    </script>
+</body>
+</html>
