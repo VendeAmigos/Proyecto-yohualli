@@ -20,7 +20,11 @@
                 <li><a href="servicios.html">Servicios</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="contacto.html" class="active">Contacto</a></li>
-             </ul>
+                <!-- Enlaces dinámicos según estado de sesión -->
+                <li id="auth-links">
+                    <!-- Se llenarán con JavaScript -->
+                </li>
+            </ul>
             <div class="nav-actions">
                 <div class="cart-icon" onclick="toggleCart()">
                     <i class="fas fa-shopping-cart"></i>
@@ -71,37 +75,6 @@
             <div style="max-width: 1200px; margin: 0 auto;">
                 <div class="contact-info">
                     <div class="contact-item fade-in">
-                        <i class="fas fa-phone-alt"></i>
-                        <h4>Teléfono</h4>
-                        <p>
-                            <strong>Principal:</strong> +52 449 123 4567<br>
-                            <strong>WhatsApp:</strong> +52 449 765 4321<br>
-                            <strong>Horario:</strong> Lun - Vie: 9:00 AM - 6:00 PM
-                        </p>
-                    </div>
-                    
-                    <div class="contact-item fade-in">
-                        <i class="fas fa-envelope"></i>
-                        <h4>Email</h4>
-                        <p>
-                            <strong>General:</strong> info@yohualli.com<br>
-                            <strong>Ventas:</strong> ventas@yohualli.com<br>
-                            <strong>Soporte:</strong> soporte@yohualli.com
-                        </p>
-                    </div>
-                    
-                    <div class="contact-item fade-in">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h4>Ubicación</h4>
-                        <p>
-                            <strong>Dirección:</strong><br>
-                            Av. Universidad 123, Piso 2<br>
-                            Col. Centro, Aguascalientes<br>
-                            CP 20130, México
-                        </p>
-                    </div>
-                    
-                    <div class="contact-item fade-in">
                         <i class="fas fa-clock"></i>
                         <h4>Horarios</h4>
                         <p>
@@ -115,7 +88,7 @@
             </div>
         </section>
 
-        <!-- Formulario de Contacto -->
+        <!-- Formulario de Contacto Mejorado -->
         <section class="section">
             <div class="form-container">
                 <div class="form-card">
@@ -127,7 +100,10 @@
                         </p>
                     </div>
                     
-                    <form id="contactForm" onsubmit="submitContact(event)">
+                    <!-- Mensajes de estado -->
+                    <div id="messageContainer" style="display: none; margin-bottom: 2rem;"></div>
+                    
+                    <form id="contactForm" onsubmit="submitContactForm(event)">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                             <div class="form-group">
                                 <label for="name">
@@ -265,7 +241,7 @@
                             </label>
                         </div>
                         
-                        <button type="submit" class="cta-button" style="width: 100%; font-size: 1.3rem; padding: 1.5rem;">
+                        <button type="submit" class="cta-button" id="submitBtn" style="width: 100%; font-size: 1.3rem; padding: 1.5rem;">
                             <i class="fas fa-paper-plane"></i> Enviar Mensaje
                         </button>
                         
@@ -323,55 +299,54 @@
                 </div>
             </div>
         </section>
-<section class="section">
-    <h2 class="section-title">Encuentra Nuestro Taller</h2>
-    <div style="background: var(--accent-gray); border-radius: 30px; padding: 2.5rem 1rem 2rem 1rem; max-width: 1400px; margin: 0 auto 2rem auto;">
-        <!-- Mapa (tu iframe personalizado, pero adaptado a ocupar el 100% del contenedor) -->
-        <div style="width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 2rem;">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3704.6634781325724!2d-102.28983982401607!3d21.793281561080494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429ed3b6cb6f827%3A0xcc0796eb9a89637b!2sUAA%20CAMPUS%20SUR!5e0!3m2!1ses-419!2smx!4v1748301598958!5m2!1ses-419!2smx"
-                width="100%"
-                height="400"
-                style="border:0; display:block;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <!-- Grid de transporte -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: left;">
-            <div>
-                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
-                    <i class="fas fa-car"></i> En Auto
-                </h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">
-                    Estacionamiento gratuito disponible. 
-                    Fácil acceso desde el centro de la ciudad.
-                </p>
-            </div>
-            <div>
-                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
-                    <i class="fas fa-bus"></i> Transporte Público
-                </h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">
-                    Rutas 5, 12 y 18. Parada "Universidad" 
-                    a 2 cuadras del taller.
-                </p>
-            </div>
-            <div>
-                <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
-                    <i class="fas fa-walking"></i> A Pie
-                </h4>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">
-                    A 10 minutos caminando del centro histórico.
-                    Zona segura y bien iluminada.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
 
-
+        <!-- Mapa -->
+        <section class="section">
+            <h2 class="section-title">Encuentra Nuestro Taller</h2>
+            <div style="background: var(--accent-gray); border-radius: 30px; padding: 2.5rem 1rem 2rem 1rem; max-width: 1400px; margin: 0 auto 2rem auto;">
+                <div style="width: 100%; border-radius: 20px; overflow: hidden; margin-bottom: 2rem;">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3704.6634781325724!2d-102.28983982401607!3d21.793281561080494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429ed3b6cb6f827%3A0xcc0796eb9a89637b!2sUAA%20CAMPUS%20SUR!5e0!3m2!1ses-419!2smx!4v1748301598958!5m2!1ses-419!2smx"
+                        width="100%"
+                        height="400"
+                        style="border:0; display:block;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: left;">
+                    <div>
+                        <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                            <i class="fas fa-car"></i> En Auto
+                        </h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">
+                            Estacionamiento gratuito disponible. 
+                            Fácil acceso desde el centro de la ciudad.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                            <i class="fas fa-bus"></i> Transporte Público
+                        </h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">
+                            Rutas 5, 12 y 18. Parada "Universidad" 
+                            a 2 cuadras del taller.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--neon-blue); margin-bottom: 0.5rem;">
+                            <i class="fas fa-walking"></i> A Pie
+                        </h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">
+                            A 10 minutos caminando del centro histórico.
+                            Zona segura y bien iluminada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -425,12 +400,77 @@
 
     <script src="script.js"></script>
     <script>
+        // Función mejorada para el formulario de contacto
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const submitBtn = document.getElementById('submitBtn');
+            const messageContainer = document.getElementById('messageContainer');
+            
+            // Deshabilitar botón y mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            fetch('contact-handler.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('¡Mensaje enviado exitosamente! Te contactaremos pronto.', 'success');
+                    form.reset();
+                    updateMessageCounter();
+                } else {
+                    if (data.errors) {
+                        showMessage('Errores en el formulario:<br>• ' + data.errors.join('<br>• '), 'error');
+                    } else {
+                        showMessage(data.message || 'Error al enviar el mensaje', 'error');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('Error de conexión. Por favor, intenta nuevamente.', 'error');
+            })
+            .finally(() => {
+                // Rehabilitar botón
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje';
+            });
+        }
+        
+        function showMessage(message, type) {
+            const messageContainer = document.getElementById('messageContainer');
+            const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+            
+            messageContainer.innerHTML = `
+                <div class="alert ${alertClass}">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                    ${message}
+                </div>
+            `;
+            messageContainer.style.display = 'block';
+            
+            // Scroll hacia el mensaje
+            messageContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Auto-ocultar mensaje de éxito después de 5 segundos
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
         // Contador de caracteres para el mensaje
-        document.addEventListener('DOMContentLoaded', function() {
+        function updateMessageCounter() {
             const messageField = document.getElementById('message');
             const counter = document.getElementById('messageCounter');
             
-            function updateCounter() {
+            if (messageField && counter) {
                 const length = messageField.value.length;
                 counter.textContent = `${length} caracteres`;
                 
@@ -442,10 +482,71 @@
                     counter.style.color = 'var(--neon-blue)';
                 }
             }
+        }
+        
+        // Verificar estado de autenticación y actualizar navegación
+        function checkAuthStatus() {
+            fetch('check-auth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authLinks = document.getElementById('auth-links');
+                    if (data.isLoggedIn) {
+                        if (data.isAdmin) {
+                            authLinks.innerHTML = '<a href="admin/dashboard.php">Panel Admin</a><a href="logout.php">Salir</a>';
+                        } else {
+                            authLinks.innerHTML = '<a href="dashboard.php">Mi Panel</a><a href="logout.php">Salir</a>';
+                        }
+                    } else {
+                        authLinks.innerHTML = '<a href="login.php">Iniciar Sesión</a><a href="register.php">Registro</a>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking auth status:', error);
+                    document.getElementById('auth-links').innerHTML = '<a href="login.php">Iniciar Sesión</a>';
+                });
+        }
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageField = document.getElementById('message');
+            if (messageField) {
+                messageField.addEventListener('input', updateMessageCounter);
+                updateMessageCounter();
+            }
             
-            messageField.addEventListener('input', updateCounter);
-            updateCounter();
+            checkAuthStatus();
         });
     </script>
 </body>
 </html>
+                        <i class="fas fa-phone-alt"></i>
+                        <h4>Teléfono</h4>
+                        <p>
+                            <strong>Principal:</strong> +52 449 123 4567<br>
+                            <strong>WhatsApp:</strong> +52 449 765 4321<br>
+                            <strong>Horario:</strong> Lun - Vie: 9:00 AM - 6:00 PM
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>
+                            <strong>General:</strong> info@yohualli.com<br>
+                            <strong>Ventas:</strong> ventas@yohualli.com<br>
+                            <strong>Soporte:</strong> soporte@yohualli.com
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Ubicación</h4>
+                        <p>
+                            <strong>Dirección:</strong><br>
+                            Av. Universidad 123, Piso 2<br>
+                            Col. Centro, Aguascalientes<br>
+                            CP 20130, México
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
