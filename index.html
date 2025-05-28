@@ -89,6 +89,10 @@
                 <li><a href="servicios.html">Servicios</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <!-- Enlaces dinámicos según estado de sesión -->
+                <li id="auth-links">
+                    <!-- Se llenarán con JavaScript -->
+                </li>
             </ul>
             <div class="nav-actions">
                 <div class="cart-icon" onclick="toggleCart()">
@@ -133,9 +137,16 @@
             <div class="hero-content">
                 <h1 class="float">YOHUALLI</h1>
                 <p>Transformamos tus ideas en realidad a través de la impresión 3D de vanguardia</p>
-                <a href="productos.html" class="cta-button glow">
-                    Explorar Productos
-                </a>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="productos.html" class="cta-button glow">
+                        <i class="fas fa-cube"></i>
+                        Explorar Productos
+                    </a>
+                    <a href="personalizado.html" class="cta-button" style="background: var(--gradient-2);">
+                        <i class="fas fa-pencil-ruler"></i>
+                        Diseño Personalizado
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -151,7 +162,7 @@
                         <div class="product-info">
                             <h3 class="product-name">Tecnología de Vanguardia</h3>
                             <p class="product-description">
-                                Contamos con impresoras FDM, SLA y SLS de última generación, capaces de trabajar con los materiales más avanzados del mercado.
+                                Contamos con impresoras FDM, SLA y SLS de última generación, capaces de trabajar con los materiales más avanzados del mercado para cualquier tipo de proyecto.
                             </p>
                         </div>
                     </div>
@@ -187,7 +198,7 @@
                         <div class="product-info">
                             <h3 class="product-name">Atención Personalizada</h3>
                             <p class="product-description">
-                                Cada cliente es único. Ofrecemos consultoría especializada y acompañamiento en todo el proceso de desarrollo.
+                                Cada cliente es único. Ofrecemos consultoría especializada y acompañamiento en todo el proceso de desarrollo de tu proyecto.
                             </p>
                         </div>
                     </div>
@@ -199,7 +210,7 @@
                         <div class="product-info">
                             <h3 class="product-name">Compromiso Ambiental</h3>
                             <p class="product-description">
-                                Utilizamos materiales biodegradables, reciclamos residuos y compensamos nuestra huella de carbono.
+                                Utilizamos materiales biodegradables, reciclamos residuos y compensamos nuestra huella de carbono en cada proyecto.
                             </p>
                         </div>
                     </div>
@@ -216,12 +227,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div style="text-align: center; margin-top: 3rem;">
-                    <a href="productos.html" class="cta-button">
-                        <i class="fas fa-cube"></i> Ver Nuestros Productos
-                    </a>
-                </div>
             </div>
         </section>
 
@@ -233,33 +238,107 @@
                     <div class="product-image">
                         <i class="fas fa-print"></i>
                     </div>
-                    <h3 class="product-name">Impresión 3D</h3>
-                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
-                        Impresión de alta calidad con tecnología FDM y SLA para todo tipo de proyectos.
-                    </p>
-                    <a href="productos.html" class="add-to-cart">Ver Más</a>
+                    <div class="product-info">
+                        <h3 class="product-name">Impresión 3D FDM</h3>
+                        <p class="product-description">
+                            Impresión de alta calidad con tecnología FDM para prototipos funcionales y productos finales. Más de 15 materiales disponibles.
+                        </p>
+                        <div style="color: var(--neon-blue); font-weight: bold; margin: 0.5rem 0;">
+                            Desde $5/gramo
+                        </div>
+                        <a href="servicios.html" class="add-to-cart">Ver Detalles</a>
+                    </div>
                 </div>
                 
                 <div class="product-card fade-in">
                     <div class="product-image">
-                        <i class="fas fa-drafting-compass"></i>
+                        <i class="fas fa-gem"></i>
                     </div>
-                    <h3 class="product-name">Diseño 3D</h3>
-                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
-                        Creamos modelos 3D personalizados desde tu idea hasta el producto final.
-                    </p>
-                    <a href="personalizado.html" class="add-to-cart">Solicitar</a>
+                    <div class="product-info">
+                        <h3 class="product-name">Impresión SLA</h3>
+                        <p class="product-description">
+                            Máxima precisión y acabado superficial excepcional con resina. Perfecto para joyería y miniaturas detalladas.
+                        </p>
+                        <div style="color: var(--neon-blue); font-weight: bold; margin: 0.5rem 0;">
+                            Desde $15/gramo
+                        </div>
+                        <a href="servicios.html" class="add-to-cart">Ver Detalles</a>
+                    </div>
                 </div>
                 
                 <div class="product-card slide-in-right">
                     <div class="product-image">
-                        <i class="fas fa-rocket"></i>
+                        <i class="fas fa-drafting-compass"></i>
                     </div>
-                    <h3 class="product-name">Prototipado Rápido</h3>
-                    <p style="color: var(--text-gray); margin-bottom: 1rem;">
-                        Desarrolla y prueba tus ideas con nuestros servicios de prototipado acelerado.
-                    </p>
-                    <a href="contacto.html" class="add-to-cart">Consultar</a>
+                    <div class="product-info">
+                        <h3 class="product-name">Diseño 3D</h3>
+                        <p class="product-description">
+                            Creamos modelos 3D personalizados desde tu idea hasta el producto final. Incluye optimización para impresión.
+                        </p>
+                        <div style="color: var(--neon-blue); font-weight: bold; margin: 0.5rem 0;">
+                            Desde $500
+                        </div>
+                        <a href="personalizado.html" class="add-to-cart">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos en Tendencia -->
+        <section class="section">
+            <div class="trending-products">
+                <h2 class="section-title">Productos en Tendencia</h2>
+                <div class="products-grid">
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <img src="imagenes/Firewad-AAP-01-MP5-Lower-8-Photoroom.png" alt="Receptor Firewad MP5">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Receptor Firewad MP5 AAP01</h3>
+                            <p class="product-description">Receptor inferior compatible con AAP01 estilo MP5 para Airsoft.</p>
+                            <p class="product-price">$299</p>
+                            <button class="add-to-cart" onclick="addToCart(1, 'Receptor Firewad MP5', 299)">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Agregar al Carrito</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <img src="imagenes/Phare-Photoroom.png" alt="Faro">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Faro Miniatura</h3>
+                            <p class="product-description">Miniatura arquitectónica de faro, ideal para maquetas y exhibición.</p>
+                            <p class="product-price">$450</p>
+                            <button class="add-to-cart" onclick="addToCart(2, 'Faro Miniatura', 450)">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Agregar al Carrito</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <img src="imagenes/ITADORI YUJI - JUJUTSU KAISEN.png" alt="Itadori Yuji">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Itadori Yuji - Jujutsu Kaisen</h3>
+                            <p class="product-description">Figura impresa en 3D de Itadori Yuji, inspirada en Jujutsu Kaisen.</p>
+                            <p class="product-price">$180</p>
+                            <button class="add-to-cart" onclick="addToCart(3, 'Itadori Yuji Figure', 180)">
+                                <i class="fas fa-cart-plus"></i>
+                                <span>Agregar al Carrito</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="productos.html" class="cta-button">
+                        <i class="fas fa-cube"></i> Ver Todos los Productos
+                    </a>
                 </div>
             </div>
         </section>
@@ -343,142 +422,229 @@
             </div>
         </section>
 
-<!-- Galería de Proyectos -->
-<section class="section gallery-section-fixed">
-    <div class="gallery-container">
-        <h2 class="section-title">Galería de Proyectos</h2>
-        <div class="gallery-filter">
-            <button class="filter-btn active" onclick="filterGalleryFixed('all')">Todos</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('prototipos')">Prototipos</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('figuras')">Figuras</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('funcional')">Funcional</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('decorativo')">Decorativo</button>
-        </div>
-        <div class="gallery-grid-fixed">
-            <!-- Prototipo Mecánico -->
-            <div class="gallery-item-fixed" data-category="funcional">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/F22.png" alt="Engranaje" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>F-22 Raptor Display Model</h4>
-                        <p>Modelo a escala del caza F-22 Raptor, impreso en alta resolución con detalles aerodinámicos precisos. Ideal para exhibición, educación o coleccionismo.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PETG</span>
-                            <span class="tag">Funcional</span>
+        <!-- Galería de Proyectos -->
+        <section class="section gallery-section-fixed">
+            <div class="gallery-container">
+                <h2 class="section-title">Galería de Proyectos</h2>
+                <div class="gallery-filter">
+                    <button class="filter-btn active" onclick="filterGalleryFixed('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('prototipos')">Prototipos</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('figuras')">Figuras</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('funcional')">Funcional</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('decorativo')">Decorativo</button>
+                </div>
+                <div class="gallery-grid-fixed">
+                    <!-- F-22 Raptor -->
+                    <div class="gallery-item-fixed" data-category="funcional">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/F22.png" alt="F-22 Raptor" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>F-22 Raptor Display Model</h4>
+                                <p>Modelo a escala del caza F-22 Raptor, impreso en alta resolución con detalles aerodinámicos precisos.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PETG</span>
+                                    <span class="tag">Funcional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grumpy Cat -->
+                    <div class="gallery-item-fixed" data-category="figuras">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Grumpy Cat Figurine.png" alt="Grumpy Cat" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Grumpy Cat Figurine</h4>
+                                <p>Miniatura detallada en resina SLA con acabado premium y alta precisión.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">Resina</span>
+                                    <span class="tag">Alta Precisión</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terminator T800 -->
+                    <div class="gallery-item-fixed" data-category="figuras">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Dummy 13 - Terminator T800 Armor.png" alt="Terminator T800" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Terminator T800 Armor</h4>
+                                <p>Armadura T800 impresa con detalles increíbles. Perfecta para coleccionismo.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Figuras</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Axolote -->
+                    <div class="gallery-item-fixed" data-category="decorativo">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/axolotl.png" alt="Axolote" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Axolote en Miniatura</h4>
+                                <p>Figura de axolote en resina casteable, ideal como joya o pieza decorativa única.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">Resina</span>
+                                    <span class="tag">Decorativo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exhibidor -->
+                    <div class="gallery-item-fixed" data-category="funcional">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Desk organizer - display shelves.png" alt="Exhibidor" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Exhibidor Escalonado</h4>
+                                <p>Soporte de 3 niveles ideal para exhibición de productos pequeños.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PETG</span>
+                                    <span class="tag">Funcional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Engranaje -->
+                    <div class="gallery-item-fixed" data-category="prototipos">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Rack and Sprocket Module 3.png" alt="Engranaje" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Engranaje y Cremallera</h4>
+                                <p>Prototipo funcional impreso en PLA para pruebas mecánicas.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Prototipo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repo Bead -->
+                    <div class="gallery-item-fixed" data-category="decorativo">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Repo Bead.png" alt="Repo Bead" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Repo Rojo</h4>
+                                <p>Figura decorativa impresa en PLA, perfecta para escritorio o colección.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Decorativo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medidor de Tornillos -->
+                    <div class="gallery-item-fixed" data-category="prototipos">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Wood Screws Measure & Sort metric (Mesure vis aglobois).png" alt="Medidor de tornillos" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Medidor de Tornillos</h4>
+                                <p>Herramienta impresa en 3D para medir la longitud y diámetro de tornillos de forma rápida y precisa.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Herramienta</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Figura Personalizada -->
-            <div class="gallery-item-fixed" data-category="figuras">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Grumpy Cat Figurine.png" alt="Figura" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Grumpy Cat Figurine</h4>
-                        <p>Miniatura detallada en resina SLA con acabado premium</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Resina</span>
-                            <span class="tag">Alta Precisión</span>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="background: var(--secondary-black); padding: 4rem 2rem; border-radius: 25px; border: 1px solid var(--accent-gray); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%); pointer-events: none;"></div>
+                    <div style="position: relative; z-index: 1;">
+                        <h2 style="text-align: center; color: var(--white); margin-bottom: 3rem; font-size: 2.5rem;">Yohualli en Números</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">5000+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Productos Impresos</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">500+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Clientes Satisfechos</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">5</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Años de Experiencia</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">15+</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Materiales Disponibles</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">98%</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Satisfacción del Cliente</p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold; color: var(--neon-blue); margin-bottom: 0.5rem;">24h</div>
+                                <p style="color: var(--text-gray); font-size: 1.1rem;">Tiempo de Respuesta</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Maqueta Arquitectónica -->
-            <div class="gallery-item-fixed" data-category="figuras">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Dummy 13 - Terminator T800 Armor.png" alt="Maqueta" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Dummy 13 - Terminator T800 Armor</h4>
-                        <p>Armadura T800 impresa a escala 1:100. Perfecta para presentación o exhibición.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PLA</span>
-                            <span class="tag">Figuras</span>
-                        </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section class="section">
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-image" style="height: 80px;">
+                        <i class="fas fa-quote-left" style="color: var(--neon-blue); font-size: 2rem;"></i>
+                    </div>
+                    <div class="product-info">
+                        <p style="color: var(--text-gray); font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+                            "La calidad de impresión de Yohualli superó todas mis expectativas. El prototipo de mi producto quedó perfecto y me ayudaron mucho en el proceso."
+                        </p>
+                        <h4 style="color: var(--white); margin-bottom: 0.5rem;">María González</h4>
+                        <p style="color: var(--neon-blue); font-size: 0.9rem;">Diseñadora Industrial</p>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image" style="height: 80px;">
+                        <i class="fas fa-quote-left" style="color: var(--neon-blue); font-size: 2rem;"></i>
+                    </div>
+                    <div class="product-info">
+                        <p style="color: var(--text-gray); font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+                            "Excelente servicio y atención personalizada. Cumplieron con los tiempos prometidos y el resultado final fue exactamente lo que necesitaba."
+                        </p>
+                        <h4 style="color: var(--white); margin-bottom: 0.5rem;">Carlos Mendoza</h4>
+                        <p style="color: var(--neon-blue); font-size: 0.9rem;">Ingeniero Mecánico</p>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image" style="height: 80px;">
+                        <i class="fas fa-quote-left" style="color: var(--neon-blue); font-size: 2rem;"></i>
+                    </div>
+                    <div class="product-info">
+                        <p style="color: var(--text-gray); font-style: italic; line-height: 1.6; margin-bottom: 1rem;">
+                            "La variedad de materiales y la calidad de acabado son increíbles. Definitivamente recomiendo Yohualli para cualquier proyecto 3D."
+                        </p>
+                        <h4 style="color: var(--white); margin-bottom: 0.5rem;">Ana Rodríguez</h4>
+                        <p style="color: var(--neon-blue); font-size: 0.9rem;">Arquitecta</p>
                     </div>
                 </div>
             </div>
-            <!-- Axolote en Miniatura -->
-            <div class="gallery-item-fixed" data-category="decorativo">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/axolotl.png" alt="Axolote en miniatura" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Axolote en Miniatura</h4>
-                        <p>Figura de axolote en resina casteable, ideal como joya o pieza decorativa única.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Axolote</span>
-                            <span class="tag">Resina</span>
-                            <span class="tag">Hecho a mano</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Exhibidor Escalonado 3 Niveles -->
-            <div class="gallery-item-fixed" data-category="funcional">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Desk organizer - display shelves.png" alt="Exhibidor escalonado" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Exhibidor Escalonado</h4>
-                        <p>Soporte de 3 niveles ideal para exhibición de productos pequeños.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PETG</span>
-                            <span class="tag">Funcional</span>
-                            <span class="tag">Estable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Prototipo de Engranaje y Cremallera -->
-            <div class="gallery-item-fixed" data-category="prototipos">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Rack and Sprocket Module 3.png" alt="Prototipo engranaje cremallera" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Engranaje y Cremallera</h4>
-                        <p>Prototipo funcional impreso en PLA para pruebas mecánicas.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PLA</span>
-                            <span class="tag">Prototipo</span>
-                            <span class="tag">Engranaje</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Figura Decorativa - Personaje Rojo -->
-            <div class="gallery-item-fixed" data-category="decorativo">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Repo Bead.png" alt="Figura decorativa personaje rojo" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Repo Rojo</h4>
-                        <p>Figura decorativa impresa en PLA, perfecta para escritorio o colección.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Decorativo</span>
-                            <span class="tag">PLA</span>
-                            <span class="tag">Diseño 3D</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Medidor de Tornillos Métrico -->
-            <div class="gallery-item-fixed" data-category="prototipos">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Wood Screws Measure & Sort metric (Mesure vis aglobois).png" alt="Medidor de tornillos" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Medidor de Tornillos</h4>
-                        <p>Herramienta impresa en 3D para medir la longitud y diámetro de tornillos de forma rápida y precisa.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">3D Print</span>
-                            <span class="tag">Organización</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
+
         <!-- Banner CTA -->
         <section class="cta-banner-fixed">
             <div class="cta-content">
                 <h2>¿Listo para Materializar tu Idea?</h2>
-                <p>Únete a más de 150 clientes satisfechos que han confiado en nosotros</p>
+                <p>Únete a más de 500 clientes satisfechos que han confiado en nosotros para transformar sus ideas en realidad</p>
                 <div class="cta-buttons">
                     <a href="personalizado.html" class="cta-button primary">
                         <i class="fas fa-rocket"></i>
@@ -521,6 +687,7 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="personalizado.html">Personalizado</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
@@ -529,11 +696,12 @@
             <div class="footer-section">
                 <h3>Servicios</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Impresión FDM</a></li>
-                    <li><a href="#">Impresión SLA</a></li>
-                    <li><a href="#">Diseño 3D</a></li>
-                    <li><a href="#">Prototipado</a></li>
-                    <li><a href="#">Consultoría</a></li>
+                    <li><a href="servicios.html">Impresión FDM</a></li>
+                    <li><a href="servicios.html">Impresión SLA</a></li>
+                    <li><a href="servicios.html">Impresión SLS</a></li>
+                    <li><a href="servicios.html">Diseño 3D</a></li>
+                    <li><a href="servicios.html">Prototipado</a></li>
+                    <li><a href="servicios.html">Consultoría</a></li>
                 </ul>
             </div>
             
@@ -553,5 +721,33 @@
 
     <script src="script.js"></script>
     <script src="printer-animation.js"></script>
+    <script>
+        // Verificar estado de autenticación y actualizar navegación
+        function checkAuthStatus() {
+            fetch('check-auth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authLinks = document.getElementById('auth-links');
+                    if (data.isLoggedIn) {
+                        if (data.isAdmin) {
+                            authLinks.innerHTML = '<a href="admin/dashboard.php"><i class="fas fa-tachometer-alt"></i> Panel Admin</a><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Salir</a>';
+                        } else {
+                            authLinks.innerHTML = '<a href="dashboard.php"><i class="fas fa-user"></i> Mi Panel</a><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Salir</a>';
+                        }
+                    } else {
+                        authLinks.innerHTML = '<a href="login.php"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a><a href="register.php"><i class="fas fa-user-plus"></i> Registro</a>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking auth status:', error);
+                    document.getElementById('auth-links').innerHTML = '<a href="login.php"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>';
+                });
+        }
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+        });
+    </script>
 </body>
 </html>
