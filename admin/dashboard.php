@@ -498,7 +498,7 @@ $flash = getFlashMessage();
             
             <ul class="sidebar-menu">
                 <li><a href="dashboard.php" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="usuarios.php"><i class="fas fa-users"></i> Usuarios</a></li>
+                <li><a href="admin/usuarios.php"><i class="fas fa-users"></i> Usuarios</a></li>
                 <li><a href="productos.php"><i class="fas fa-cube"></i> Productos</a></li>
                 <li><a href="cotizaciones.php"><i class="fas fa-calculator"></i> Cotizaciones</a></li>
                 <li><a href="pedidos.php"><i class="fas fa-box"></i> Pedidos</a></li>
