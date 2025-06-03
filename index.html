@@ -91,10 +91,56 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
             <div class="nav-actions">
+                <!-- Carrito -->
                 <div class="cart-icon" onclick="toggleCart()">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
                 </div>
+                
+                <!-- Botones de autenticación (cuando no está logueado) -->
+                <div class="auth-buttons" id="authButtons">
+                    <a href="login.php" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Iniciar Sesión</span>
+                    </a>
+                    <a href="register.php" class="auth-btn register-btn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Registrarse</span>
+                    </a>
+                </div>
+
+                <!-- Menú de usuario (cuando está logueado) -->
+                <div class="user-menu" id="userMenu">
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <span id="userInitial">U</span>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-info">
+                            <div class="user-name" id="userName">Usuario</div>
+                            <div class="user-email" id="userEmail">usuario@email.com</div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="dashboard.php" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="profile.php" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Mi Perfil
+                        </a>
+                        <a href="mis-pedidos.php" class="dropdown-item">
+                            <i class="fas fa-box"></i>
+                            Mis Pedidos
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="logout.php" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Botón menú móvil -->
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -343,137 +389,138 @@
             </div>
         </section>
 
-<!-- Galería de Proyectos -->
-<section class="section gallery-section-fixed">
-    <div class="gallery-container">
-        <h2 class="section-title">Galería de Proyectos</h2>
-        <div class="gallery-filter">
-            <button class="filter-btn active" onclick="filterGalleryFixed('all')">Todos</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('prototipos')">Prototipos</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('figuras')">Figuras</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('funcional')">Funcional</button>
-            <button class="filter-btn" onclick="filterGalleryFixed('decorativo')">Decorativo</button>
-        </div>
-        <div class="gallery-grid-fixed">
-            <!-- Prototipo Mecánico -->
-            <div class="gallery-item-fixed" data-category="funcional">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/F22.png" alt="Engranaje" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>F-22 Raptor Display Model</h4>
-                        <p>Modelo a escala del caza F-22 Raptor, impreso en alta resolución con detalles aerodinámicos precisos. Ideal para exhibición, educación o coleccionismo.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PETG</span>
-                            <span class="tag">Funcional</span>
+        <!-- Galería de Proyectos -->
+        <section class="section gallery-section-fixed">
+            <div class="gallery-container">
+                <h2 class="section-title">Galería de Proyectos</h2>
+                <div class="gallery-filter">
+                    <button class="filter-btn active" onclick="filterGalleryFixed('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('prototipos')">Prototipos</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('figuras')">Figuras</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('funcional')">Funcional</button>
+                    <button class="filter-btn" onclick="filterGalleryFixed('decorativo')">Decorativo</button>
+                </div>
+                <div class="gallery-grid-fixed">
+                    <!-- Prototipo Mecánico -->
+                    <div class="gallery-item-fixed" data-category="funcional">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/F22.png" alt="Engranaje" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>F-22 Raptor Display Model</h4>
+                                <p>Modelo a escala del caza F-22 Raptor, impreso en alta resolución con detalles aerodinámicos precisos. Ideal para exhibición, educación o coleccionismo.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PETG</span>
+                                    <span class="tag">Funcional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Figura Personalizada -->
+                    <div class="gallery-item-fixed" data-category="figuras">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Grumpy Cat Figurine.png" alt="Figura" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Grumpy Cat Figurine</h4>
+                                <p>Miniatura detallada en resina SLA con acabado premium</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">Resina</span>
+                                    <span class="tag">Alta Precisión</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Maqueta Arquitectónica -->
+                    <div class="gallery-item-fixed" data-category="figuras">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Dummy 13 - Terminator T800 Armor.png" alt="Maqueta" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Dummy 13 - Terminator T800 Armor</h4>
+                                <p>Armadura T800 impresa a escala 1:100. Perfecta para presentación o exhibición.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Figuras</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Axolote en Miniatura -->
+                    <div class="gallery-item-fixed" data-category="decorativo">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/axolotl.png" alt="Axolote en miniatura" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Axolote en Miniatura</h4>
+                                <p>Figura de axolote en resina casteable, ideal como joya o pieza decorativa única.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">Axolote</span>
+                                    <span class="tag">Resina</span>
+                                    <span class="tag">Hecho a mano</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Exhibidor Escalonado 3 Niveles -->
+                    <div class="gallery-item-fixed" data-category="funcional">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Desk organizer - display shelves.png" alt="Exhibidor escalonado" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Exhibidor Escalonado</h4>
+                                <p>Soporte de 3 niveles ideal para exhibición de productos pequeños.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PETG</span>
+                                    <span class="tag">Funcional</span>
+                                    <span class="tag">Estable</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Prototipo de Engranaje y Cremallera -->
+                    <div class="gallery-item-fixed" data-category="prototipos">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Rack and Sprocket Module 3.png" alt="Prototipo engranaje cremallera" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Engranaje y Cremallera</h4>
+                                <p>Prototipo funcional impreso en PLA para pruebas mecánicas.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Prototipo</span>
+                                    <span class="tag">Engranaje</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Figura Decorativa - Personaje Rojo -->
+                    <div class="gallery-item-fixed" data-category="decorativo">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Repo Bead.png" alt="Figura decorativa personaje rojo" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Repo Rojo</h4>
+                                <p>Figura decorativa impresa en PLA, perfecta para escritorio o colección.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">Decorativo</span>
+                                    <span class="tag">PLA</span>
+                                    <span class="tag">Diseño 3D</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Medidor de Tornillos Métrico -->
+                    <div class="gallery-item-fixed" data-category="prototipos">
+                        <div class="gallery-image-fixed">
+                            <img src="imagenes/Wood Screws Measure & Sort metric (Mesure vis aglobois).png" alt="Medidor de tornillos" class="gallery-icon-img" />
+                            <div class="gallery-overlay-fixed">
+                                <h4>Medidor de Tornillos</h4>
+                                <p>Herramienta impresa en 3D para medir la longitud y diámetro de tornillos de forma rápida y precisa.</p>
+                                <div class="gallery-tags">
+                                    <span class="tag">3D Print</span>
+                                    <span class="tag">Organización</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Figura Personalizada -->
-            <div class="gallery-item-fixed" data-category="figuras">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Grumpy Cat Figurine.png" alt="Figura" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Grumpy Cat Figurine</h4>
-                        <p>Miniatura detallada en resina SLA con acabado premium</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Resina</span>
-                            <span class="tag">Alta Precisión</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Maqueta Arquitectónica -->
-            <div class="gallery-item-fixed" data-category="figuras">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Dummy 13 - Terminator T800 Armor.png" alt="Maqueta" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Dummy 13 - Terminator T800 Armor</h4>
-                        <p>Armadura T800 impresa a escala 1:100. Perfecta para presentación o exhibición.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PLA</span>
-                            <span class="tag">Figuras</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Axolote en Miniatura -->
-            <div class="gallery-item-fixed" data-category="decorativo">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/axolotl.png" alt="Axolote en miniatura" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Axolote en Miniatura</h4>
-                        <p>Figura de axolote en resina casteable, ideal como joya o pieza decorativa única.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Axolote</span>
-                            <span class="tag">Resina</span>
-                            <span class="tag">Hecho a mano</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Exhibidor Escalonado 3 Niveles -->
-            <div class="gallery-item-fixed" data-category="funcional">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Desk organizer - display shelves.png" alt="Exhibidor escalonado" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Exhibidor Escalonado</h4>
-                        <p>Soporte de 3 niveles ideal para exhibición de productos pequeños.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PETG</span>
-                            <span class="tag">Funcional</span>
-                            <span class="tag">Estable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Prototipo de Engranaje y Cremallera -->
-            <div class="gallery-item-fixed" data-category="prototipos">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Rack and Sprocket Module 3.png" alt="Prototipo engranaje cremallera" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Engranaje y Cremallera</h4>
-                        <p>Prototipo funcional impreso en PLA para pruebas mecánicas.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">PLA</span>
-                            <span class="tag">Prototipo</span>
-                            <span class="tag">Engranaje</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Figura Decorativa - Personaje Rojo -->
-            <div class="gallery-item-fixed" data-category="decorativo">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Repo Bead.png" alt="Figura decorativa personaje rojo" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Repo Rojo</h4>
-                        <p>Figura decorativa impresa en PLA, perfecta para escritorio o colección.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">Decorativo</span>
-                            <span class="tag">PLA</span>
-                            <span class="tag">Diseño 3D</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Medidor de Tornillos Métrico -->
-            <div class="gallery-item-fixed" data-category="prototipos">
-                <div class="gallery-image-fixed">
-                    <img src="imagenes/Wood Screws Measure & Sort metric (Mesure vis aglobois).png" alt="Medidor de tornillos" class="gallery-icon-img" />
-                    <div class="gallery-overlay-fixed">
-                        <h4>Medidor de Tornillos</h4>
-                        <p>Herramienta impresa en 3D para medir la longitud y diámetro de tornillos de forma rápida y precisa.</p>
-                        <div class="gallery-tags">
-                            <span class="tag">3D Print</span>
-                            <span class="tag">Organización</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
+
         <!-- Banner CTA -->
         <section class="cta-banner-fixed">
             <div class="cta-content">

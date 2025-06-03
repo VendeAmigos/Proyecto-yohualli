@@ -1,102 +1,87 @@
 <?php
 require_once 'config.php';
 
-// Si ya está logueado, redirigir
+// Si ya está logueado, redirigir al index
 if (isLoggedIn()) {
-    redirectTo('dashboard.php');
+    if (isAdmin()) {
+        redirectTo('admin/dashboard.php');
+    } else {
+        redirectTo('index.html');
+    }
 }
 
-$errors = [];
-$formData = [];
+$error = '';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $formData = [
-        'nombre' => sanitize($_POST['nombre'] ?? ''),
-        'apellidos' => sanitize($_POST['apellidos'] ?? ''),
-        'email' => sanitize($_POST['email'] ?? ''),
-        'telefono' => sanitize($_POST['telefono'] ?? ''),
-        'empresa' => sanitize($_POST['empresa'] ?? ''),
-        'password' => $_POST['password'] ?? '',
-        'confirm_password' => $_POST['confirm_password'] ?? ''
-    ];
+    $nombre = sanitize($_POST['nombre'] ?? '');
+    $apellidos = sanitize($_POST['apellidos'] ?? '');
+    $email = sanitize($_POST['email'] ?? '');
+    $telefono = sanitize($_POST['telefono'] ?? '');
+    $empresa = sanitize($_POST['empresa'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $terms = isset($_POST['terms']);
     
     // Validaciones
-    if (empty($formData['nombre'])) {
-        $errors[] = 'El nombre es requerido';
-    }
-    
-    if (empty($formData['apellidos'])) {
-        $errors[] = 'Los apellidos son requeridos';
-    }
-    
-    if (empty($formData['email']) || !validateEmail($formData['email'])) {
-        $errors[] = 'Email válido es requerido';
-    }
-    
-    if (empty($formData['password'])) {
-        $errors[] = 'La contraseña es requerida';
-    } elseif (!validatePassword($formData['password'])) {
-        $errors[] = 'La contraseña debe tener al menos ' . PASSWORD_MIN_LENGTH . ' caracteres';
-    }
-    
-    if ($formData['password'] !== $formData['confirm_password']) {
-        $errors[] = 'Las contraseñas no coinciden';
-    }
-    
-    // Verificar si el email ya existe
-    if (empty($errors)) {
+    if (empty($nombre) || empty($apellidos) || empty($email) || empty($password)) {
+        $error = 'Por favor, complete todos los campos obligatorios';
+    } elseif (!validateEmail($email)) {
+        $error = 'El email no tiene un formato válido';
+    } elseif (!validatePassword($password)) {
+        $error = 'La contraseña debe tener al menos ' . PASSWORD_MIN_LENGTH . ' caracteres';
+    } elseif ($password !== $confirm_password) {
+        $error = 'Las contraseñas no coinciden';
+    } elseif (!$terms) {
+        $error = 'Debe aceptar los términos y condiciones';
+    } else {
         $db = Database::getInstance();
-        $existingUser = $db->fetch("SELECT id FROM usuarios WHERE email = ?", [$formData['email']]);
+        
+        // Verificar si el email ya existe
+        $existingUser = $db->fetch("SELECT id FROM usuarios WHERE email = ?", [$email]);
         
         if ($existingUser) {
-            $errors[] = 'Ya existe una cuenta con este email';
-        }
-    }
-    
-    // Si no hay errores, crear el usuario
-    if (empty($errors)) {
-        try {
-            $passwordHash = hashPassword($formData['password']);
-            $verificationToken = generateToken();
-            
-            $sql = "INSERT INTO usuarios (nombre, apellidos, email, telefono, empresa, password_hash, token_verificacion, fecha_registro) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
-            
-            $params = [
-                $formData['nombre'],
-                $formData['apellidos'],
-                $formData['email'],
-                $formData['telefono'],
-                $formData['empresa'],
-                $passwordHash,
-                $verificationToken
-            ];
-            
-            $db->query($sql, $params);
-            $userId = $db->lastInsertId();
-            
-            // Log de registro
-            logActivity($userId, 'registro_usuario');
-            
-            // Enviar email de verificación (implementar según necesidades)
-            // sendVerificationEmail($formData['email'], $verificationToken);
-            
-            showMessage('Registro exitoso. Revisa tu email para verificar tu cuenta.', 'success');
-            redirectTo('login.php');
-            
-        } catch (Exception $e) {
-            $errors[] = 'Error al crear la cuenta. Intenta nuevamente.';
-            error_log("Error en registro: " . $e->getMessage());
+            $error = 'Ya existe una cuenta con este email';
+        } else {
+            try {
+                // Crear nuevo usuario
+                $token_verificacion = generateToken();
+                $password_hash = hashPassword($password);
+                
+                $sql = "INSERT INTO usuarios (nombre, apellidos, email, telefono, empresa, password_hash, token_verificacion, fecha_registro) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+                
+                $db->query($sql, [$nombre, $apellidos, $email, $telefono, $empresa, $password_hash, $token_verificacion]);
+                
+                $userId = $db->lastInsertId();
+                
+                // Log del registro
+                logActivity($userId, 'registro_usuario', 'usuarios', $userId);
+                
+                // Enviar email de verificación (opcional)
+                // sendVerificationEmail($email, $token_verificacion);
+                
+                $success = 'Cuenta creada exitosamente. Puedes iniciar sesión ahora.';
+                
+                // Limpiar formulario
+                $nombre = $apellidos = $email = $telefono = $empresa = '';
+                
+            } catch (Exception $e) {
+                $error = 'Error al crear la cuenta. Intente nuevamente.';
+                error_log("Error en registro: " . $e->getMessage());
+            }
         }
     }
 }
+
+$flash = getFlashMessage();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Yohualli</title>
+    <title>Crear Cuenta - Yohualli</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -128,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
         
@@ -142,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .register-logo {
             font-size: 2.5rem;
             font-weight: 900;
-            background: var(--gradient-2);
+            background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -156,17 +141,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.1rem;
         }
         
-        .form-row {
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group {
             margin-bottom: 2rem;
             position: relative;
             z-index: 1;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
         }
         
         .form-group label {
@@ -177,8 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1rem;
         }
         
-        .form-group input,
-        .form-group select {
+        .form-group input {
             width: 100%;
             padding: 1.2rem;
             background: var(--accent-gray);
@@ -190,26 +178,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-sizing: border-box;
         }
         
-        .form-group input:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--neon-blue);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
             background: rgba(42, 42, 42, 0.8);
         }
         
-        .password-strength {
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
+        .password-group {
+            position: relative;
         }
         
-        .strength-weak { color: #ff6b6b; }
-        .strength-medium { color: #ffd93d; }
-        .strength-strong { color: #6bcf7f; }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-password:hover {
+            color: var(--neon-blue);
+        }
+        
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .terms-group input[type="checkbox"] {
+            margin-top: 0.2rem;
+            transform: scale(1.2);
+        }
+        
+        .terms-group a {
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
+        
+        .terms-group a:hover {
+            color: var(--white);
+        }
         
         .register-btn {
             width: 100%;
-            background: var(--gradient-2);
+            background: var(--gradient-1);
             color: var(--white);
             padding: 1.3rem;
             border: none;
@@ -232,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--gradient-1);
+            background: var(--gradient-2);
             transition: left 0.4s ease;
             z-index: -1;
         }
@@ -243,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .register-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
         }
         
         .register-footer {
@@ -278,9 +298,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #ff6b6b;
         }
         
-        .alert ul {
-            margin: 0;
-            padding-left: 1.5rem;
+        .alert-success {
+            background: rgba(72, 187, 120, 0.1);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+            color: #68d391;
+        }
+        
+        .alert-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--neon-blue);
         }
         
         .back-to-site {
@@ -308,9 +335,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 padding: 2rem;
             }
             
-            .form-row {
+            .form-grid {
                 grid-template-columns: 1fr;
-                gap: 0;
+                gap: 1rem;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
             }
             
             .back-to-site {
@@ -330,28 +361,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="register-card">
             <div class="register-header">
                 <div class="register-logo">YOHUALLI</div>
-                <p class="register-subtitle">Crea tu cuenta</p>
+                <p class="register-subtitle">Crea tu cuenta y comienza a imprimir</p>
             </div>
             
-            <?php if (!empty($errors)): ?>
+            <?php if ($flash): ?>
+                <div class="alert alert-<?php echo $flash['type']; ?>">
+                    <i class="fas fa-info-circle"></i> <?php echo htmlspecialchars($flash['message']); ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($error): ?>
                 <div class="alert alert-error">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <ul>
-                        <?php foreach ($errors as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <i class="fas fa-exclamation-triangle"></i> <?php echo htmlspecialchars($error); ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($success): ?>
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> <?php echo htmlspecialchars($success); ?>
                 </div>
             <?php endif; ?>
             
             <form method="POST" action="" id="registerForm">
-                <div class="form-row">
+                <div class="form-grid">
                     <div class="form-group">
                         <label for="nombre">
                             <i class="fas fa-user"></i> Nombre *
                         </label>
                         <input type="text" id="nombre" name="nombre" required 
-                               value="<?php echo htmlspecialchars($formData['nombre'] ?? ''); ?>"
+                               value="<?php echo htmlspecialchars($nombre ?? ''); ?>"
                                placeholder="Tu nombre">
                     </div>
                     
@@ -360,7 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fas fa-user"></i> Apellidos *
                         </label>
                         <input type="text" id="apellidos" name="apellidos" required 
-                               value="<?php echo htmlspecialchars($formData['apellidos'] ?? ''); ?>"
+                               value="<?php echo htmlspecialchars($apellidos ?? ''); ?>"
                                placeholder="Tus apellidos">
                     </div>
                 </div>
@@ -370,18 +408,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="fas fa-envelope"></i> Correo electrónico *
                     </label>
                     <input type="email" id="email" name="email" required 
-                           value="<?php echo htmlspecialchars($formData['email'] ?? ''); ?>"
+                           value="<?php echo htmlspecialchars($email ?? ''); ?>"
                            placeholder="tu@email.com">
                 </div>
                 
-                <div class="form-row">
+                <div class="form-grid">
                     <div class="form-group">
                         <label for="telefono">
                             <i class="fas fa-phone"></i> Teléfono
                         </label>
                         <input type="tel" id="telefono" name="telefono" 
-                               value="<?php echo htmlspecialchars($formData['telefono'] ?? ''); ?>"
-                               placeholder="+52 449 123 4567">
+                               value="<?php echo htmlspecialchars($telefono ?? ''); ?>"
+                               placeholder="123 456 7890">
                     </div>
                     
                     <div class="form-group">
@@ -389,31 +427,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fas fa-building"></i> Empresa
                         </label>
                         <input type="text" id="empresa" name="empresa" 
-                               value="<?php echo htmlspecialchars($formData['empresa'] ?? ''); ?>"
-                               placeholder="Nombre de tu empresa">
+                               value="<?php echo htmlspecialchars($empresa ?? ''); ?>"
+                               placeholder="Nombre de la empresa">
                     </div>
                 </div>
                 
-                <div class="form-row">
+                <div class="form-grid">
                     <div class="form-group">
                         <label for="password">
                             <i class="fas fa-lock"></i> Contraseña *
                         </label>
-                        <input type="password" id="password" name="password" required 
-                               placeholder="Mínimo 8 caracteres"
-                               onkeyup="checkPasswordStrength()">
-                        <div id="passwordStrength" class="password-strength"></div>
+                        <div class="password-group">
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Mínimo <?php echo PASSWORD_MIN_LENGTH; ?> caracteres">
+                            <span class="toggle-password" onclick="togglePassword('password', this)">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="confirm_password">
                             <i class="fas fa-lock"></i> Confirmar contraseña *
                         </label>
-                        <input type="password" id="confirm_password" name="confirm_password" required 
-                               placeholder="Confirma tu contraseña"
-                               onkeyup="checkPasswordMatch()">
-                        <div id="passwordMatch" class="password-strength"></div>
+                        <div class="password-group">
+                            <input type="password" id="confirm_password" name="confirm_password" required 
+                                   placeholder="Repite tu contraseña">
+                            <span class="toggle-password" onclick="togglePassword('confirm_password', this)">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="terms-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Acepto los <a href="terminos.html" target="_blank">términos y condiciones</a> 
+                        y la <a href="privacidad.html" target="_blank">política de privacidad</a>
+                    </label>
                 </div>
                 
                 <button type="submit" class="register-btn">
@@ -428,56 +480,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     
     <script>
-        function checkPasswordStrength() {
-            const password = document.getElementById('password').value;
-            const strengthDiv = document.getElementById('passwordStrength');
+        function togglePassword(fieldId, element) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeIcon = element.querySelector('i');
             
-            if (password.length === 0) {
-                strengthDiv.innerHTML = '';
-                return;
-            }
-            
-            let strength = 0;
-            const checks = [
-                password.length >= 8,
-                /[a-z]/.test(password),
-                /[A-Z]/.test(password),
-                /[0-9]/.test(password),
-                /[^A-Za-z0-9]/.test(password)
-            ];
-            
-            strength = checks.filter(check => check).length;
-            
-            if (strength < 3) {
-                strengthDiv.innerHTML = '<span class="strength-weak">Débil</span>';
-                strengthDiv.className = 'password-strength strength-weak';
-            } else if (strength < 4) {
-                strengthDiv.innerHTML = '<span class="strength-medium">Media</span>';
-                strengthDiv.className = 'password-strength strength-medium';
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
             } else {
-                strengthDiv.innerHTML = '<span class="strength-strong">Fuerte</span>';
-                strengthDiv.className = 'password-strength strength-strong';
+                passwordField.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
             }
         }
         
-        function checkPasswordMatch() {
+        // Validación en tiempo real
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
-            const matchDiv = document.getElementById('passwordMatch');
+            const terms = document.getElementById('terms').checked;
             
-            if (confirmPassword.length === 0) {
-                matchDiv.innerHTML = '';
-                return;
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden');
+                return false;
             }
             
-            if (password === confirmPassword) {
-                matchDiv.innerHTML = '<span class="strength-strong">✓ Las contraseñas coinciden</span>';
-                matchDiv.className = 'password-strength strength-strong';
+            if (!terms) {
+                e.preventDefault();
+                alert('Debes aceptar los términos y condiciones');
+                return false;
+            }
+        });
+        
+        // Validación de contraseña en tiempo real
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#ff6b6b';
             } else {
-                matchDiv.innerHTML = '<span class="strength-weak">✗ Las contraseñas no coinciden</span>';
-                matchDiv.className = 'password-strength strength-weak';
+                this.style.borderColor = 'var(--light-gray)';
             }
-        }
+        });
     </script>
 </body>
 </html>

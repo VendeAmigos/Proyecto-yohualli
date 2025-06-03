@@ -1970,3 +1970,494 @@ function debugMobileMenu() {
     console.log('Estado del menú:', mobileMenuOpen);
     console.log('Ancho de ventana:', window.innerWidth);
 }
+// ===== JAVASCRIPT PARA AUTENTICACIÓN - AGREGAR A script.js =====
+
+// Variables globales para autenticación
+let isUserLoggedIn = false;
+let currentUser = null;
+
+// Inicialización de autenticación al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuthStatus();
+    setupAuthEventListeners();
+});
+
+// Verificar estado de autenticación
+function checkAuthStatus() {
+    // Simular verificación de sesión (en producción esto vendría del servidor)
+    const userData = localStorage.getItem('yohualli_user');
+    const sessionToken = localStorage.getItem('yohualli_session');
+    
+    if (userData && sessionToken) {
+        try {
+            currentUser = JSON.parse(userData);
+            isUserLoggedIn = true;
+            showUserMenu();
+            hideAuthButtons();
+        } catch (e) {
+            console.error('Error parsing user data:', e);
+            logout();
+        }
+    } else {
+        showAuthButtons();
+        hideUserMenu();
+    }
+}
+
+// Mostrar menú de usuario logueado
+function showUserMenu() {
+    const userMenu = document.getElementById('userMenu');
+    const authButtons = document.getElementById('authButtons');
+    
+    if (userMenu && currentUser) {
+        userMenu.classList.add('active');
+        userMenu.style.display = 'block';
+        
+        // Actualizar información del usuario
+        const userInitial = document.getElementById('userInitial');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        
+        if (userInitial) {
+            userInitial.textContent = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
+        }
+        
+        if (userName) {
+            userName.textContent = currentUser.nombre + ' ' + (currentUser.apellidos || '');
+        }
+        
+        if (userEmail) {
+            userEmail.textContent = currentUser.email;
+        }
+    }
+    
+    if (authButtons) {
+        authButtons.style.display = 'none';
+    }
+}
+
+// Ocultar menú de usuario
+function hideUserMenu() {
+    const userMenu = document.getElementById('userMenu');
+    if (userMenu) {
+        userMenu.classList.remove('active');
+        userMenu.style.display = 'none';
+    }
+}
+
+// Mostrar botones de autenticación
+function showAuthButtons() {
+    const authButtons = document.getElementById('authButtons');
+    if (authButtons) {
+        authButtons.style.display = 'flex';
+    }
+}
+
+// Ocultar botones de autenticación
+function hideAuthButtons() {
+    const authButtons = document.getElementById('authButtons');
+    if (authButtons) {
+        authButtons.style.display = 'none';
+    }
+}
+
+// Toggle del dropdown de usuario
+function toggleUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    const overlay = document.querySelector('.dropdown-overlay');
+    
+    if (!dropdown) return;
+    
+    const isOpen = dropdown.classList.contains('show');
+    
+    if (isOpen) {
+        closeUserDropdown();
+    } else {
+        openUserDropdown();
+    }
+}
+
+// Abrir dropdown de usuario
+function openUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    let overlay = document.querySelector('.dropdown-overlay');
+    
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'dropdown-overlay';
+        document.body.appendChild(overlay);
+        
+        // Cerrar dropdown al hacer clic en el overlay
+        overlay.addEventListener('click', closeUserDropdown);
+    }
+    
+    if (dropdown) {
+        dropdown.classList.add('show');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Cerrar dropdown de usuario
+function closeUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    const overlay = document.querySelector('.dropdown-overlay');
+    
+    if (dropdown) {
+        dropdown.classList.remove('show');
+    }
+    
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+    
+    document.body.style.overflow = 'auto';
+}
+
+// Configurar event listeners para autenticación
+function setupAuthEventListeners() {
+    // Cerrar dropdown con tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeUserDropdown();
+        }
+    });
+    
+    // Prevenir que el dropdown se cierre al hacer clic dentro de él
+    const dropdown = document.getElementById('userDropdown');
+    if (dropdown) {
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    // Event listeners para botones de autenticación
+    const loginBtn = document.querySelector('.login-btn');
+    const registerBtn = document.querySelector('.register-btn');
+    
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function(e) {
+            // Si estás usando enlaces, no necesitas prevenir default
+            // Si usas JavaScript para manejar el login, descomenta la siguiente línea:
+            // e.preventDefault();
+            // handleLogin();
+        });
+    }
+    
+    if (registerBtn) {
+        registerBtn.addEventListener('click', function(e) {
+            // Si estás usando enlaces, no necesitas prevenir default
+            // Si usas JavaScript para manejar el registro, descomenta la siguiente línea:
+            // e.preventDefault();
+            // handleRegister();
+        });
+    }
+}
+
+// Función para simular login (para pruebas - eliminar en producción)
+function simulateLogin(userData = null) {
+    const testUser = userData || {
+        id: 1,
+        nombre: 'Juan',
+        apellidos: 'Pérez',
+        email: 'juan.perez@example.com',
+        rol: 'usuario'
+    };
+    
+    // Simular datos de sesión
+    localStorage.setItem('yohualli_user', JSON.stringify(testUser));
+    localStorage.setItem('yohualli_session', 'fake_session_token_' + Date.now());
+    
+    currentUser = testUser;
+    isUserLoggedIn = true;
+    
+    showUserMenu();
+    hideAuthButtons();
+    
+    showNotification('Bienvenido de vuelta, ' + testUser.nombre + '!', 'success');
+    
+    // Redirigir según el rol del usuario
+    if (testUser.rol === 'admin') {
+        // Opcional: redirigir a dashboard de admin
+        console.log('Usuario admin logueado');
+    }
+}
+
+// Función de logout
+function logout() {
+    // Limpiar datos de sesión
+    localStorage.removeItem('yohualli_user');
+    localStorage.removeItem('yohualli_session');
+    
+    currentUser = null;
+    isUserLoggedIn = false;
+    
+    hideUserMenu();
+    showAuthButtons();
+    closeUserDropdown();
+    
+    showNotification('Sesión cerrada correctamente', 'info');
+    
+    // Redirigir a página principal si está en página protegida
+    if (window.location.pathname.includes('dashboard') || 
+        window.location.pathname.includes('profile') || 
+        window.location.pathname.includes('admin')) {
+        window.location.href = 'index.html';
+    }
+}
+
+// Función para manejar login desde formulario
+function handleLoginSubmit(formData) {
+    const loginBtn = document.querySelector('.login-btn');
+    
+    if (loginBtn) {
+        loginBtn.classList.add('loading');
+        loginBtn.textContent = 'Iniciando...';
+    }
+    
+    // Simular petición de login (reemplazar con llamada real a la API)
+    setTimeout(() => {
+        // Simular respuesta exitosa
+        const userData = {
+            id: 1,
+            nombre: formData.get('nombre') || 'Usuario',
+            apellidos: formData.get('apellidos') || '',
+            email: formData.get('email'),
+            rol: 'usuario'
+        };
+        
+        simulateLogin(userData);
+        
+        if (loginBtn) {
+            loginBtn.classList.remove('loading');
+            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>Iniciar Sesión</span>';
+        }
+    }, 1500);
+}
+
+// Función para verificar si el usuario está logueado (para páginas protegidas)
+function requireAuth() {
+    if (!isUserLoggedIn) {
+        showNotification('Debes iniciar sesión para acceder a esta página', 'warning');
+        setTimeout(() => {
+            window.location.href = 'login.php';
+        }, 2000);
+        return false;
+    }
+    return true;
+}
+
+// Función para verificar si el usuario es admin (para páginas de admin)
+function requireAdmin() {
+    if (!isUserLoggedIn || currentUser?.rol !== 'admin') {
+        showNotification('No tienes permisos para acceder a esta página', 'error');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+        return false;
+    }
+    return true;
+}
+
+// Función para actualizar el carrito cuando el usuario se loguea
+function syncCartWithUser() {
+    if (isUserLoggedIn && currentUser) {
+        // Aquí puedes sincronizar el carrito local con el carrito del usuario en el servidor
+        console.log('Sincronizando carrito para usuario:', currentUser.email);
+        
+        // Ejemplo: enviar carrito local al servidor
+        const localCart = JSON.parse(localStorage.getItem('yohualli_cart')) || [];
+        if (localCart.length > 0) {
+            // syncCartToServer(localCart);
+        }
+    }
+}
+
+// Función para mostrar notificaciones de autenticación
+function showAuthNotification(message, type = 'info', duration = 4000) {
+    // Usar la función showNotification existente o crear una específica para auth
+    if (typeof showNotification === 'function') {
+        showNotification(message, type);
+    } else {
+        // Fallback si no existe la función showNotification
+        alert(message);
+    }
+}
+
+// Función para manejar errores de autenticación
+function handleAuthError(error) {
+    console.error('Error de autenticación:', error);
+    
+    let message = 'Error de autenticación';
+    
+    switch (error.code) {
+        case 'INVALID_CREDENTIALS':
+            message = 'Email o contraseña incorrectos';
+            break;
+        case 'USER_NOT_FOUND':
+            message = 'Usuario no encontrado';
+            break;
+        case 'ACCOUNT_DISABLED':
+            message = 'Cuenta deshabilitada. Contacta al administrador';
+            break;
+        case 'SESSION_EXPIRED':
+            message = 'Sesión expirada. Por favor, inicia sesión nuevamente';
+            logout();
+            break;
+        default:
+            message = error.message || 'Error desconocido';
+    }
+    
+    showAuthNotification(message, 'error');
+}
+
+// Función para refrescar token de sesión
+function refreshAuthToken() {
+    const sessionToken = localStorage.getItem('yohualli_session');
+    
+    if (!sessionToken || !isUserLoggedIn) {
+        return Promise.reject('No hay sesión activa');
+    }
+    
+    // En producción, hacer petición al servidor para refrescar el token
+    return new Promise((resolve, reject) => {
+        // Simular petición
+        setTimeout(() => {
+            const newToken = 'refreshed_token_' + Date.now();
+            localStorage.setItem('yohualli_session', newToken);
+            resolve(newToken);
+        }, 1000);
+    });
+}
+
+// Verificar sesión periódicamente
+function startSessionCheck() {
+    // Verificar sesión cada 15 minutos
+    setInterval(() => {
+        if (isUserLoggedIn) {
+            refreshAuthToken()
+                .catch(() => {
+                    handleAuthError({ code: 'SESSION_EXPIRED' });
+                });
+        }
+    }, 15 * 60 * 1000); // 15 minutos
+}
+
+// Integración con menú móvil para mostrar opciones de auth
+function updateMobileMenuAuth() {
+    const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileNavLinks = document.querySelector('.mobile-nav-links');
+    
+    if (!mobileNavLinks) return;
+    
+    // Remover auth móvil existente
+    const existingAuth = mobileNavLinks.querySelector('.auth-mobile');
+    if (existingAuth) {
+        existingAuth.remove();
+    }
+    
+    // Crear nueva sección de auth para móvil
+    const authMobile = document.createElement('div');
+    authMobile.className = 'auth-mobile';
+    
+    if (isUserLoggedIn && currentUser) {
+        // Usuario logueado - mostrar opciones de usuario
+        authMobile.innerHTML = `
+            <div style="text-align: center; padding: 1rem; background: var(--gradient-1); border-radius: 15px; margin-bottom: 1rem;">
+                <div style="color: var(--white); font-weight: bold; margin-bottom: 0.5rem;">
+                    ${currentUser.nombre} ${currentUser.apellidos || ''}
+                </div>
+                <div style="color: var(--white); opacity: 0.9; font-size: 0.9rem;">
+                    ${currentUser.email}
+                </div>
+            </div>
+            <a href="dashboard.php" class="auth-btn login-btn">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="profile.php" class="auth-btn register-btn">
+                <i class="fas fa-user"></i>
+                <span>Mi Perfil</span>
+            </a>
+            <button onclick="logout()" class="auth-btn" style="background: #ff6b6b; border-color: #ff6b6b;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        `;
+    } else {
+        // Usuario no logueado - mostrar botones de login/register
+        authMobile.innerHTML = `
+            <a href="login.php" class="auth-btn login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Iniciar Sesión</span>
+            </a>
+            <a href="register.php" class="auth-btn register-btn">
+                <i class="fas fa-user-plus"></i>
+                <span>Registrarse</span>
+            </a>
+        `;
+    }
+    
+    authMobile.classList.add('show');
+    mobileNavLinks.appendChild(authMobile);
+}
+
+// Función para testing - remover en producción
+function testAuth() {
+    console.log('=== TESTING AUTH ===');
+    console.log('Estado login:', isUserLoggedIn);
+    console.log('Usuario actual:', currentUser);
+    
+    if (!isUserLoggedIn) {
+        console.log('Simulando login...');
+        simulateLogin();
+    } else {
+        console.log('Simulando logout...');
+        logout();
+    }
+}
+
+// Iniciar verificación de sesión
+startSessionCheck();
+
+// Actualizar menú móvil cuando cambie el estado de auth
+function updateAuthState() {
+    updateMobileMenuAuth();
+    syncCartWithUser();
+}
+
+// Llamar updateAuthState cuando cambie el estado de autenticación
+document.addEventListener('authStateChanged', updateAuthState);
+
+// Event personalizado para cambios de estado de auth
+function triggerAuthStateChange() {
+    const event = new CustomEvent('authStateChanged', {
+        detail: {
+            isLoggedIn: isUserLoggedIn,
+            user: currentUser
+        }
+    });
+    document.dispatchEvent(event);
+}
+
+// Modificar las funciones de login y logout para disparar el evento
+const originalSimulateLogin = simulateLogin;
+simulateLogin = function(userData) {
+    originalSimulateLogin(userData);
+    triggerAuthStateChange();
+};
+
+const originalLogout = logout;
+logout = function() {
+    originalLogout();
+    triggerAuthStateChange();
+};
+
+// Exponer funciones globales para debugging (remover en producción)
+window.YohualliAuth = {
+    login: simulateLogin,
+    logout: logout,
+    test: testAuth,
+    getUser: () => currentUser,
+    isLoggedIn: () => isUserLoggedIn
+};
